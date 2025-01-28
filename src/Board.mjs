@@ -2,13 +2,21 @@ export class Board {
   width;
   height;
   boardArr;
+  positionRow;
+  positionCol;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.positionRow = 0;
+    this.positionCol = Math.floor(this.width / 2);
     this.boardArr = Array(height)
       .fill(".")
       .map(() => Array(width).fill("."));
+  }
+
+  drop(block) {
+    this.boardArr[this.positionRow][this.positionCol] = block;
   }
 
   toString() {
