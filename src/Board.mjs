@@ -16,7 +16,11 @@ export class Board {
   }
 
   drop(block) {
-    this.boardArr[this.positionRow][this.positionCol] = block;
+    if (this.positionRow == 0 && this.boardArr[this.positionRow].every(cell => cell === '.')) {
+      this.boardArr[this.positionRow][this.positionCol] = block;
+    } else {
+      throw new Error("already falling");
+    }
   }
 
   tick() {
@@ -24,6 +28,11 @@ export class Board {
     this.boardArr[this.positionRow][this.positionCol] = '.'
     this.positionRow++
     this.boardArr[this.positionRow][this.positionCol] = block
+    this.validatePosition();
+  }
+
+  validatePosition() {
+    if (this.positionRow == this.height - 1) this.positionRow = 0;
   }
 
   toString() {
