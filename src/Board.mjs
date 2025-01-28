@@ -19,6 +19,13 @@ export class Board {
     this.boardArr[this.positionRow][this.positionCol] = block;
   }
 
+  tick() {
+    let block = this.boardArr[this.positionRow][this.positionCol]
+    this.boardArr[this.positionRow][this.positionCol] = '.'
+    this.positionRow++
+    this.boardArr[this.positionRow][this.positionCol] = block
+  }
+
   toString() {
     let str = "";
 
