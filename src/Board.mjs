@@ -28,6 +28,7 @@ export class Board {
     const oldRow = this.positionRow;
     this.positionRow++;
 
+    // Move block if position is valid
     if (this.validatePosition()) {
       this.boardArr[this.positionRow][this.positionCol] = block;
       this.boardArr[oldRow][this.positionCol] = ".";
@@ -35,7 +36,13 @@ export class Board {
   }
 
   validatePosition() {
+    // If the bottom is reached
     if (this.positionRow == this.height) {
+      this.positionRow = 0;
+      return false;
+    }
+    // If the next position is not an empty row
+    if (this.boardArr[this.positionRow][this.positionCol] != ".") {
       this.positionRow = 0;
       return false;
     }
