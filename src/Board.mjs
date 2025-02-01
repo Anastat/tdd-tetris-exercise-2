@@ -28,16 +28,18 @@ export class Board {
     const oldRow = this.positionRow;
     this.positionRow++;
 
-    if (this.hasFalling()) {
+    if (this.validatePosition()) {
       this.boardArr[this.positionRow][this.positionCol] = block;
       this.boardArr[oldRow][this.positionCol] = ".";
-      return;
     }
-    this.validatePosition();
   }
 
   validatePosition() {
-    if (this.positionRow == this.height) this.positionRow = 0;
+    if (this.positionRow == this.height) {
+      this.positionRow = 0;
+      return false;
+    }
+    return true;
   }
 
   hasFalling() {
