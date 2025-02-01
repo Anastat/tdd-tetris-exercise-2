@@ -25,10 +25,13 @@ export class Board {
 
   tick() {
     let block = this.boardArr[this.positionRow][this.positionCol];
-    this.boardArr[this.positionRow][this.positionCol] = ".";
+    const oldRow = this.positionRow;
     this.positionRow++;
-    this.boardArr[this.positionRow][this.positionCol] = block;
-    this.validatePosition();
+
+    if (this.hasFalling()) {
+      this.boardArr[this.positionRow][this.positionCol] = block;
+      this.boardArr[oldRow][this.positionCol] = ".";
+    }
   }
 
   validatePosition() {
@@ -36,7 +39,7 @@ export class Board {
   }
 
   hasFalling() {
-    return this.positionRow != this.height - 1;
+    return this.positionRow < this.height;
   }
 
   toString() {
