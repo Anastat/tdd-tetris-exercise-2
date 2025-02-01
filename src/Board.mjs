@@ -16,7 +16,7 @@ export class Board {
   }
 
   drop(block) {
-    if (this.positionRow == 0 && this.boardArr[this.positionRow].every(cell => cell === '.')) {
+    if (this.positionRow == 0 && this.boardArr[this.positionRow].every((cell) => cell === ".")) {
       this.boardArr[this.positionRow][this.positionCol] = block;
     } else {
       throw new Error("already falling");
@@ -24,15 +24,19 @@ export class Board {
   }
 
   tick() {
-    let block = this.boardArr[this.positionRow][this.positionCol]
-    this.boardArr[this.positionRow][this.positionCol] = '.'
-    this.positionRow++
-    this.boardArr[this.positionRow][this.positionCol] = block
+    let block = this.boardArr[this.positionRow][this.positionCol];
+    this.boardArr[this.positionRow][this.positionCol] = ".";
+    this.positionRow++;
+    this.boardArr[this.positionRow][this.positionCol] = block;
     this.validatePosition();
   }
 
   validatePosition() {
     if (this.positionRow == this.height - 1) this.positionRow = 0;
+  }
+
+  hasFalling() {
+    return this.positionRow != this.height - 1;
   }
 
   toString() {
