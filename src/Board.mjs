@@ -31,15 +31,17 @@ export class Board {
     if (this.hasFalling()) {
       this.boardArr[this.positionRow][this.positionCol] = block;
       this.boardArr[oldRow][this.positionCol] = ".";
+      return;
     }
+    this.validatePosition();
   }
 
   validatePosition() {
-    if (this.positionRow == this.height - 1) this.positionRow = 0;
+    if (this.positionRow == this.height) this.positionRow = 0;
   }
 
   hasFalling() {
-    return this.positionRow < this.height;
+    return this.positionRow < this.height && this.positionRow != 0;
   }
 
   toString() {
