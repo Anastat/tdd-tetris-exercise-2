@@ -36,21 +36,18 @@ export class Board {
   }
 
   validatePosition() {
-    // If the bottom is reached
-    if (this.positionRow == this.height) {
+    // If the bottom is reached or the next position is not an empty row
+    if (this.positionRow == this.height || this.boardArr[this.positionRow][this.positionCol] != ".") {
       this.positionRow = 0;
+
       return false;
     }
-    // If the next position is not an empty row
-    if (this.boardArr[this.positionRow][this.positionCol] != ".") {
-      this.positionRow = 0;
-      return false;
-    }
+
     return true;
   }
 
   hasFalling() {
-    return this.positionRow < this.height && this.positionRow != 0;
+    return this.positionRow != 0;
   }
 
   toString() {
