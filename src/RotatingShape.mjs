@@ -15,6 +15,19 @@ export class RotatingShape {
     return new RotatingShape(shapeArr);
   }
 
+  rotateRight() {
+    const rows = this.shape.length;
+    const cols = this.shape[0].length;
+    const rotated = Array.from({ length: cols }, () => new Array(rows));
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        rotated[j][rows - 1 - i] = this.shape[i][j];
+      }
+    }
+    return new RotatingShape(rotated);
+  }
+
   toString() {
     return this.shape.map((row) => row.join("")).join("\n") + "\n";
   }
