@@ -29,6 +29,18 @@ export class RotatingShape {
     return new RotatingShape(rotated);
   }
 
+  rotateLeft() {
+    const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
+    
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        rotated[this.rows - 1 - j][i] = this.shape[i][j];
+      }
+    }
+    
+    return new RotatingShape(rotated);
+  }
+
   toString() {
     return this.shape.map((row) => row.join("")).join("\n") + "\n";
   }
