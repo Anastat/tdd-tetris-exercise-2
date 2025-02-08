@@ -1,4 +1,9 @@
 export class RotatingShape {
+  static Direction = Object.freeze({
+    LEFT: "left",
+    RIGHT: "right",
+  });
+
   constructor(shape) {
     this.rows = shape.length;
     this.cols = shape[0].length;
@@ -22,7 +27,11 @@ export class RotatingShape {
     
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        const [newI, newJ] = direction === "right" ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
+        const [newI, newJ] = 
+          direction === RotatingShape.Direction.RIGHT 
+            ? [j, this.rows - 1 - i] 
+            : [this.cols - 1 - j, i];
+            
         rotated[newI][newJ] = this.shape[i][j];
       }
     }
