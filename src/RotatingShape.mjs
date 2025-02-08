@@ -1,5 +1,7 @@
 export class RotatingShape {
   constructor(shape) {
+    this.rows = shape.length;
+    this.cols = shape[0].length;
     this.shape = RotatingShape.deepFreeze(shape);
   }
 
@@ -16,15 +18,14 @@ export class RotatingShape {
   }
 
   rotateRight() {
-    const rows = this.shape.length;
-    const cols = this.shape[0].length;
-    const rotated = Array.from({ length: cols }, () => new Array(rows));
+    const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
 
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols; j++) {
-        rotated[j][rows - 1 - i] = this.shape[i][j];
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        rotated[j][this.rows - 1 - i] = this.shape[i][j];
       }
     }
+
     return new RotatingShape(rotated);
   }
 
