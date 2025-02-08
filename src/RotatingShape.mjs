@@ -44,14 +44,7 @@ export class RotatingShape {
   }
 
   rotateLeft() {
-    const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
-    
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        rotated[this.rows - 1 - j][i] = this.shape[i][j];
-      }
-    }
-    return new RotatingShape(rotated);
+    return this.rotate(RotatingShape.Direction.LEFT);
   }
 
   toString() {
