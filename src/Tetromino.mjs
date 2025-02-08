@@ -25,6 +25,16 @@ export class Tetromino {
     ]);
   }
 
+  static get I_SHAPE() {
+    return new Tetromino([
+      [".", ".", ".", ".", "."],
+      [".", ".", ".", ".", "."],
+      ["I", "I", "I", "I", "."],
+      [".", ".", ".", ".", "."],
+      [".", ".", ".", ".", "."],
+    ]);
+  }
+
   rotate(direction) {
     const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
 
