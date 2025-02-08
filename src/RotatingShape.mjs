@@ -24,14 +24,12 @@ export class RotatingShape {
 
   rotate(direction) {
     const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
-    
+
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        const [newI, newJ] = 
-          direction === RotatingShape.Direction.RIGHT 
-            ? [j, this.rows - 1 - i] 
-            : [this.cols - 1 - j, i];
-            
+        const [newI, newJ] =
+          direction === RotatingShape.Direction.RIGHT ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
+
         rotated[newI][newJ] = this.shape[i][j];
       }
     }
