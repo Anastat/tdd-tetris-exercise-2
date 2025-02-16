@@ -36,9 +36,10 @@ export class Tetromino {
   }
 
   rotate(direction) {
-    let slicedShape = this.sliceShape()
+    let slicedShape = this.sliceShape();
+
     if (slicedShape.length == 1) {
-      direction = Tetromino.Direction.RIGHT; 
+      direction = Tetromino.Direction.RIGHT;
     } else if (slicedShape[0].length == 1) {
       direction = Tetromino.Direction.LEFT;
     }
@@ -73,7 +74,10 @@ export class Tetromino {
   }
 
   sliceShape() {
-    let minRow = this.rows, maxRow = 0, minCol = this.cols, maxCol = 0;
+    let minRow = this.rows,
+      maxRow = 0,
+      minCol = this.cols,
+      maxCol = 0;
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
