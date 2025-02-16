@@ -36,8 +36,11 @@ export class Tetromino {
   }
 
   rotate(direction) {
-    if (this.equals(Tetromino.I_SHAPE)) {
-      direction = Tetromino.Direction.RIGHT;
+    let slicedShape = this.sliceShape()
+    if (slicedShape.length == 1) {
+      direction = Tetromino.Direction.RIGHT; 
+    } else if (slicedShape[0].length == 1) {
+      direction = Tetromino.Direction.LEFT;
     }
 
     const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
@@ -67,5 +70,22 @@ export class Tetromino {
 
   equals(tetromino) {
     return JSON.stringify(this.shape) === JSON.stringify(tetromino.shape);
+  }
+
+  sliceShape() {
+    let minRow = this.rows, maxRow = 0, minCol = this.cols, maxCol = 0;
+
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        if (this.shape[i][j] !== ".") {
+          minRow = Math.min(minRow, i);
+          maxRow = Math.max(maxRow, i);
+          minCol = Math.min(minCol, j);
+          maxCol = Math.max(maxCol, j);
+        }
+      }
+    }
+
+    return this.shape.slice(minRow, maxRow + 1).map((row) => row.slice(minCol, maxCol + 1));
   }
 }
