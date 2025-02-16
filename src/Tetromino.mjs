@@ -3,9 +3,7 @@ import { RotatingShape } from "./RotatingShape.mjs"
 export class Tetromino {
 
   constructor(shape) {
-    this.rows = shape.length;
-    this.cols = shape[0].length;
-    this.shape = Tetromino.deepFreeze(shape);
+    this.rotatingShape = new RotatingShape(shape);
   }
 
   static deepFreeze(obj) {
@@ -52,15 +50,7 @@ export class Tetromino {
       direction = RotatingShape.Direction.LEFT;
     }
 
-    const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
-
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        const [newI, newJ] = direction === RotatingShape.Direction.RIGHT ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
-
-        rotated[newI][newJ] = this.shape[i][j];
-      }
-    }
+    const rotated = this.rotatingShape.rotate(direction).shape;
 
     return new Tetromino(rotated);
   }
@@ -74,22 +64,22 @@ export class Tetromino {
   }
 
   toString() {
-    return this.shape.map((row) => row.join("")).join("\n") + "\n";
+    return this.rotatingShape.toString();
   }
 
   equals(tetromino) {
-    return JSON.stringify(this.shape) === JSON.stringify(tetromino.shape);
+    return JSON.stringify(this.rotatingShape.shape) === JSON.stringify(tetromino.rotatingShape.shape);
   }
 
   sliceShape() {
-    let minRow = this.rows,
+    let minRow = this.rotatingShape.rows,
       maxRow = 0,
-      minCol = this.cols,
+      minCol = this.rotatingShape.cols,
       maxCol = 0;
 
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        if (this.shape[i][j] !== ".") {
+    for (let i = 0; i < this.rotatingShape.rows; i++) {
+      for (let j = 0; j < this.rotatingShape.cols; j++) {
+        if (this.rotatingShape.shape[i][j] !== ".") {
           minRow = Math.min(minRow, i);
           maxRow = Math.max(maxRow, i);
           minCol = Math.min(minCol, j);
@@ -98,6 +88,6 @@ export class Tetromino {
       }
     }
 
-    return this.shape.slice(minRow, maxRow + 1).map((row) => row.slice(minCol, maxCol + 1));
+    return this.rotatingShape.shape.slice(minRow, maxRow + 1).map((row) => row.slice(minCol, maxCol + 1));
   }
 }
