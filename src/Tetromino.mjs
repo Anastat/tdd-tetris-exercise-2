@@ -35,6 +35,14 @@ export class Tetromino {
     ]);
   }
 
+  static get O_SHAPE() {
+    return new Tetromino([
+      [".", "O", "O"],
+      [".", "O", "O"],
+      [".", ".", "."],
+    ]);
+  }
+
   rotate(direction) {
     let slicedShape = this.sliceShape();
 
