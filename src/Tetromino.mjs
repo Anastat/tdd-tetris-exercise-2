@@ -44,6 +44,8 @@ export class Tetromino {
   }
 
   rotate(direction) {
+    if (this.equals(Tetromino.O_SHAPE)) return this;
+
     let slicedShape = this.sliceShape();
 
     if (slicedShape.length == 1) {
