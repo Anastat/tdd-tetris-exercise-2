@@ -27,13 +27,18 @@ export class Board {
     }
 
     this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
-    this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape.toString());
+    this.positionRow = 0;
+    this.positionCol = Math.floor((this.width - this.fallingBlock.rotatingShape.shape.length) / 2);
+
+    this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape);
   }
 
   placeBlockOnBoard(block) {
-    this.positionRow = 0;
-    this.positionCol = Math.floor(this.width / 2) - Math.floor(block.length / 2);
-    this.boardArr[this.positionRow][this.positionCol] = block;
+    for (let i = 0; i < block.length; i++) {
+      for (let j = 0; j < block[i].length; j++) {
+        this.boardArr[this.positionRow + i][this.positionCol + j] = block[i][j];
+      }
+    }
   }
 
   tick() {
