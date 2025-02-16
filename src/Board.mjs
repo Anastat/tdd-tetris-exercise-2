@@ -12,7 +12,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.positionRow = 0;
-    this.positionCol = Math.floor(this.width / 2);
+    this.positionCol = 0;
     this.boardArr = Array(height)
       .fill(".")
       .map(() => Array(width).fill("."));
@@ -23,10 +23,15 @@ export class Board {
   drop(block) {
     if (this.positionRow == 0 && this.boardArr[this.positionRow].every((cell) => cell === ".")) {
       this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
-      this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
+      this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape.toString());
     } else {
       throw new Error("already falling");
     }
+  }
+
+  placeBlockOnBoard(block) {
+    this.positionCol = Math.floor(this.width / 2) - Math.floor(block.length / 2);
+    this.boardArr[this.positionRow][this.positionCol] = block;
   }
 
   tick() {
