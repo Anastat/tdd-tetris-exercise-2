@@ -1,8 +1,6 @@
+import { RotatingShape } from "./RotatingShape.mjs"
+
 export class Tetromino {
-  static Direction = Object.freeze({
-    LEFT: "left",
-    RIGHT: "right",
-  });
 
   constructor(shape) {
     this.rows = shape.length;
@@ -49,16 +47,16 @@ export class Tetromino {
     let slicedShape = this.sliceShape();
 
     if (slicedShape.length == 1) {
-      direction = Tetromino.Direction.RIGHT;
+      direction = RotatingShape.Direction.RIGHT;
     } else if (slicedShape[0].length == 1) {
-      direction = Tetromino.Direction.LEFT;
+      direction = RotatingShape.Direction.LEFT;
     }
 
     const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        const [newI, newJ] = direction === Tetromino.Direction.RIGHT ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
+        const [newI, newJ] = direction === RotatingShape.Direction.RIGHT ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
 
         rotated[newI][newJ] = this.shape[i][j];
       }
@@ -68,11 +66,11 @@ export class Tetromino {
   }
 
   rotateRight() {
-    return this.rotate(Tetromino.Direction.RIGHT);
+    return this.rotate(RotatingShape.Direction.RIGHT);
   }
 
   rotateLeft() {
-    return this.rotate(Tetromino.Direction.LEFT);
+    return this.rotate(RotatingShape.Direction.LEFT);
   }
 
   toString() {
