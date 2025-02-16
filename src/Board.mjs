@@ -1,9 +1,12 @@
+import { Tetromino } from "./Tetromino.mjs";
+import { Block } from "./Block.mjs";
 export class Board {
   width;
   height;
   boardArr;
   positionRow;
   positionCol;
+  fallingBlock;
 
   constructor(width, height) {
     this.width = width;
@@ -13,11 +16,14 @@ export class Board {
     this.boardArr = Array(height)
       .fill(".")
       .map(() => Array(width).fill("."));
+
+    this.fallingBlock = null;
   }
 
   drop(block) {
     if (this.positionRow == 0 && this.boardArr[this.positionRow].every((cell) => cell === ".")) {
-      this.boardArr[this.positionRow][this.positionCol] = block;
+      this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
+      this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
     } else {
       throw new Error("already falling");
     }
