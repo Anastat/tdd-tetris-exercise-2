@@ -36,6 +36,10 @@ export class Tetromino {
   }
 
   rotate(direction) {
+    if (this.equals(Tetromino.I_SHAPE)) {
+      direction = Tetromino.Direction.RIGHT;
+    }
+
     const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
 
     for (let i = 0; i < this.rows; i++) {
@@ -59,5 +63,9 @@ export class Tetromino {
 
   toString() {
     return this.shape.map((row) => row.join("")).join("\n") + "\n";
+  }
+
+  equals(tetromino) {
+    return JSON.stringify(this.shape) === JSON.stringify(tetromino.shape);
   }
 }
