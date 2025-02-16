@@ -1,5 +1,6 @@
 import { Tetromino } from "./Tetromino.mjs";
 import { Block } from "./Block.mjs";
+
 export class Board {
   width;
   height;
@@ -21,27 +22,27 @@ export class Board {
   }
 
   drop(block) {
-    if (this.positionRow == 0 && this.boardArr[this.positionRow].every((cell) => cell === ".")) {
-      this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
-      this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape.toString());
-    } else {
+    if (this.fallingBlock) {
       throw new Error("already falling");
     }
+
+    this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
+    this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape.toString());
   }
 
   placeBlockOnBoard(block) {
+    this.positionRow = 0;
     this.positionCol = Math.floor(this.width / 2) - Math.floor(block.length / 2);
     this.boardArr[this.positionRow][this.positionCol] = block;
   }
 
   tick() {
-    let block = this.boardArr[this.positionRow][this.positionCol];
     const oldRow = this.positionRow;
     this.positionRow++;
 
     // Move block if position is valid
     if (this.validatePosition()) {
-      this.boardArr[this.positionRow][this.positionCol] = block;
+      this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
       this.boardArr[oldRow][this.positionCol] = ".";
     }
   }
@@ -49,7 +50,7 @@ export class Board {
   validatePosition() {
     // If the bottom is reached or the next position is not an empty row
     if (this.positionRow == this.height || this.boardArr[this.positionRow][this.positionCol] != ".") {
-      this.positionRow = 0;
+      this.fallingBlock = null;
 
       return false;
     }
@@ -58,7 +59,7 @@ export class Board {
   }
 
   hasFalling() {
-    return this.positionRow != 0;
+    return this.fallingBlock != null;
   }
 
   toString() {
