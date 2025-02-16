@@ -1,16 +1,8 @@
-import { RotatingShape } from "./RotatingShape.mjs"
+import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
-
   constructor(shape) {
     this.rotatingShape = new RotatingShape(shape);
-  }
-
-  static deepFreeze(obj) {
-    if (Array.isArray(obj)) {
-      obj.forEach(Tetromino.deepFreeze);
-    }
-    return Object.freeze(obj);
   }
 
   static get T_SHAPE() {
