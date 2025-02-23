@@ -30,13 +30,13 @@ export class Board {
     this.positionRow = 0;
     this.positionCol = Math.floor((this.width - this.fallingBlock.rotatingShape.shape.length) / 2);
 
-    this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape);
+    this.placeBlockOnBoard();
   }
 
-  placeBlockOnBoard(block) {
-    for (let i = 0; i < block.length; i++) {
-      for (let j = 0; j < block[i].length; j++) {
-        this.boardArr[this.positionRow + i][this.positionCol + j] = block[i][j];
+  placeBlockOnBoard() {
+    for (let i = 0; i < this.fallingBlock.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingBlock.rotatingShape.shape[i].length; j++) {
+        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingBlock.rotatingShape.shape[i][j];
       }
     }
   }
@@ -46,7 +46,7 @@ export class Board {
     if (this.validateNextPosition()) {
       this.clearBlockOnBoard();
       this.positionRow++;
-      this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape);
+      this.placeBlockOnBoard();
     }
   }
 
