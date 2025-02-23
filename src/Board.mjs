@@ -46,13 +46,17 @@ export class Board {
     if (this.validateNextPosition()) {
       this.clearBlockOnBoard();
       this.positionRow++;
-      this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
+      this.placeBlockOnBoard(this.fallingBlock.rotatingShape.shape);
     }
   }
 
   validateNextPosition() {
+    // TODO: validate pure shape of the tetromino
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow + 1 == this.height || this.boardArr[this.positionRow + 1][this.positionCol] != ".") {
+    if (
+      this.positionRow + this.fallingBlock.rotatingShape.shape.length == this.height ||
+      this.boardArr[this.positionRow + 1][this.positionCol] != "."
+    ) {
       this.fallingBlock = null;
 
       return false;
@@ -62,8 +66,8 @@ export class Board {
   }
 
   clearBlockOnBoard() {
-    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.rows; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.cols; j++) {
+    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.shape.length; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.shape[0].length; j++) {
         this.boardArr[i][j] = ".";
       }
     }

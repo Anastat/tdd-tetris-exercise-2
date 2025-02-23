@@ -64,13 +64,13 @@ export class Tetromino {
   }
 
   sliceShape() {
-    let minRow = this.rotatingShape.rows,
+    let minRow = this.rotatingShape.shape.length,
       maxRow = 0,
-      minCol = this.rotatingShape.cols,
+      minCol = this.rotatingShape.shape[0].length,
       maxCol = 0;
 
-    for (let i = 0; i < this.rotatingShape.rows; i++) {
-      for (let j = 0; j < this.rotatingShape.cols; j++) {
+    for (let i = 0; i < this.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.rotatingShape.shape[0].length; j++) {
         if (this.rotatingShape.shape[i][j] !== ".") {
           minRow = Math.min(minRow, i);
           maxRow = Math.max(maxRow, i);
