@@ -42,19 +42,17 @@ export class Board {
   }
 
   tick() {
-    const oldRow = this.positionRow;
-    this.positionRow++;
-
-    // Move block if position is valid
-    if (this.validatePosition()) {
-      this.clearBlockOnBoard(oldRow);
+    // Move block if next position is valid
+    if (this.validateNextPosition()) {
+      this.clearBlockOnBoard();
+      this.positionRow++;
       this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
     }
   }
 
-  validatePosition() {
+  validateNextPosition() {
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow == this.height || this.boardArr[this.positionRow][this.positionCol] != ".") {
+    if (this.positionRow + 1 == this.height || this.boardArr[this.positionRow + 1][this.positionCol] != ".") {
       this.fallingBlock = null;
 
       return false;
@@ -63,8 +61,8 @@ export class Board {
     return true;
   }
 
-  clearBlockOnBoard(row) {
-    for (let i = row; i < row + this.fallingBlock.rotatingShape.rows; i++) {
+  clearBlockOnBoard() {
+    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.rows; i++) {
       for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.cols; j++) {
         this.boardArr[i][j] = ".";
       }
