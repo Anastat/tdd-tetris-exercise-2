@@ -7,7 +7,7 @@ export class RotatingShape {
   constructor(shape, height = shape.length, width = shape[0].length) {
     // Height and width of the pure shape without frame
     this.height = height;
-    this.height = width;
+    this.width = width;
     this.shape = RotatingShape.deepFreeze(shape);
   }
 
