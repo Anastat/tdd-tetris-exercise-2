@@ -47,8 +47,8 @@ export class Board {
 
     // Move block if position is valid
     if (this.validatePosition()) {
+      this.clearBlockOnBoard(oldRow);
       this.boardArr[this.positionRow][this.positionCol] = this.fallingBlock.rotatingShape.shape.toString();
-      this.boardArr[oldRow][this.positionCol] = ".";
     }
   }
 
@@ -61,6 +61,14 @@ export class Board {
     }
 
     return true;
+  }
+
+  clearBlockOnBoard(row) {
+    for (let i = row; i < row + this.fallingBlock.rotatingShape.rows; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.cols; j++) {
+        this.boardArr[i][j] = ".";
+      }
+    }
   }
 
   hasFalling() {
