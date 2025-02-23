@@ -4,10 +4,10 @@ export class RotatingShape {
     RIGHT: "right",
   });
 
-  constructor(shape) {
-    // TODO: refactor to have width and height of the shape
-    this.rows = shape.length;
-    this.cols = shape[0].length;
+  constructor(shape, height = shape.length, width = shape[0].length) {
+    // Height and width of the pure shape without frame
+    this.height = height;
+    this.height = width;
     this.shape = RotatingShape.deepFreeze(shape);
   }
 
@@ -29,7 +29,9 @@ export class RotatingShape {
     for (let i = 0; i < this.shape.length; i++) {
       for (let j = 0; j < this.shape[0].length; j++) {
         const [newI, newJ] =
-          direction === RotatingShape.Direction.RIGHT ? [j, this.shape.length - 1 - i] : [this.shape[0].length - 1 - j, i];
+          direction === RotatingShape.Direction.RIGHT
+            ? [j, this.shape.length - 1 - i]
+            : [this.shape[0].length - 1 - j, i];
 
         rotated[newI][newJ] = this.shape[i][j];
       }

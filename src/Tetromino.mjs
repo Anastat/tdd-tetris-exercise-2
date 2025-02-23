@@ -32,10 +32,11 @@ export class Tetromino {
   }
 
   rotate(direction) {
-    if (this.equals(Tetromino.O_SHAPE)) return this;
-
     let slicedShape = this.sliceShape();
 
+    if (this.equals(Tetromino.O_SHAPE)) return this;
+
+    // Special case for I-shape
     if (slicedShape.length == 1) {
       direction = RotatingShape.Direction.RIGHT;
     } else if (slicedShape[0].length == 1) {
@@ -44,7 +45,7 @@ export class Tetromino {
 
     const rotated = this.rotatingShape.rotate(direction).shape;
 
-    return new Tetromino(rotated);
+    return new Tetromino(rotated, slicedShape.length, slicedShape[0].length);
   }
 
   rotateRight() {
