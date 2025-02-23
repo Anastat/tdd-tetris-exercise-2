@@ -53,10 +53,7 @@ export class Board {
   validateNextPosition() {
     // TODO: validate pure shape of the tetromino
     // If the bottom is reached or the next position is not an empty row
-    if (
-      this.positionRow + this.fallingBlock.rotatingShape.shape.length == this.height ||
-      this.boardArr[this.positionRow + 1][this.positionCol] != "."
-    ) {
+    if (this.positionRow + this.fallingBlock.rotatingShape.shape.length == this.height || this.isBlockBelow()) {
       this.fallingBlock = null;
 
       return false;
@@ -71,6 +68,14 @@ export class Board {
         this.boardArr[i][j] = ".";
       }
     }
+  }
+
+  isBlockBelow() {
+    const rowUnderBlock = this.positionRow + this.fallingBlock.rotatingShape.shape.length;
+
+    return this.boardArr[rowUnderBlock]
+      .slice(this.positionCol, this.positionCol + this.fallingBlock.rotatingShape.shape[0].length)
+      .some((el) => el != ".");
   }
 
   hasFalling() {
