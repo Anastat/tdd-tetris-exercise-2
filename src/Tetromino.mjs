@@ -10,7 +10,7 @@ export class Tetromino {
       [".", "T", "."],
       ["T", "T", "T"],
       [".", ".", "."],
-    ]);
+    ], 2, 3);
   }
 
   static get I_SHAPE() {
@@ -20,7 +20,7 @@ export class Tetromino {
       ["I", "I", "I", "I", "."],
       [".", ".", ".", ".", "."],
       [".", ".", ".", ".", "."],
-    ]);
+    ], 1, 4);
   }
 
   static get O_SHAPE() {
@@ -28,7 +28,7 @@ export class Tetromino {
       [".", "O", "O"],
       [".", "O", "O"],
       [".", ".", "."],
-    ]);
+    ], 2, 2);
   }
 
   rotate(direction) {
