@@ -5,6 +5,7 @@ export class RotatingShape {
   });
 
   constructor(shape) {
+    // TODO: refactor to have width and height of the shape
     this.rows = shape.length;
     this.cols = shape[0].length;
     this.shape = RotatingShape.deepFreeze(shape);
@@ -23,12 +24,12 @@ export class RotatingShape {
   }
 
   rotate(direction) {
-    const rotated = Array.from({ length: this.cols }, () => new Array(this.rows));
+    const rotated = Array.from({ length: this.shape[0].length }, () => new Array(this.shape.length));
 
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
+    for (let i = 0; i < this.shape.length; i++) {
+      for (let j = 0; j < this.shape[0].length; j++) {
         const [newI, newJ] =
-          direction === RotatingShape.Direction.RIGHT ? [j, this.rows - 1 - i] : [this.cols - 1 - j, i];
+          direction === RotatingShape.Direction.RIGHT ? [j, this.shape.length - 1 - i] : [this.shape[0].length - 1 - j, i];
 
         rotated[newI][newJ] = this.shape[i][j];
       }
