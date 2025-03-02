@@ -1,8 +1,9 @@
 import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
-  constructor(shape, height, width) {
+  constructor(shape, height, width, block) {
     this.rotatingShape = new RotatingShape(shape, height, width);
+    this.block = block;
   }
 
   static get T_SHAPE() {
@@ -10,7 +11,9 @@ export class Tetromino {
       [".", "T", "."],
       ["T", "T", "T"],
       [".", ".", "."],
-    ], 2, 3);
+    ], 2, 3, [
+      [".", "T", "."],
+      ["T", "T", "T"]]);
   }
 
   static get I_SHAPE() {
@@ -20,7 +23,7 @@ export class Tetromino {
       ["I", "I", "I", "I", "."],
       [".", ".", ".", ".", "."],
       [".", ".", ".", ".", "."],
-    ], 1, 4);
+    ], 1, 4, [["I", "I", "I", "I"]]);
   }
 
   static get O_SHAPE() {
@@ -28,7 +31,8 @@ export class Tetromino {
       [".", "O", "O"],
       [".", "O", "O"],
       [".", ".", "."],
-    ], 2, 2);
+    ], 2, 2, [["O", "O"],
+    ["O", "O"],]);
   }
 
   rotate(direction) {
@@ -45,7 +49,7 @@ export class Tetromino {
 
     const rotated = this.rotatingShape.rotate(direction).shape;
 
-    return new Tetromino(rotated, slicedShape.length, slicedShape[0].length);
+    return new Tetromino(rotated, slicedShape.length, slicedShape[0].length, slicedShape);
   }
 
   rotateRight() {
