@@ -1,7 +1,7 @@
 import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
-  constructor(shape, height, width, block) {
+  constructor(shape, block) {
     this.rotatingShape = new RotatingShape(shape);
     this.block = block;
   }
@@ -13,8 +13,6 @@ export class Tetromino {
         ["T", "T", "T"],
         [".", ".", "."],
       ],
-      2,
-      3,
       [
         [".", "T", "."],
         ["T", "T", "T"],
@@ -31,8 +29,6 @@ export class Tetromino {
         [".", ".", ".", ".", "."],
         [".", ".", ".", ".", "."],
       ],
-      1,
-      4,
       [["I", "I", "I", "I"]]
     );
   }
@@ -44,8 +40,6 @@ export class Tetromino {
         [".", "O", "O"],
         [".", ".", "."],
       ],
-      2,
-      2,
       [
         ["O", "O"],
         ["O", "O"],
