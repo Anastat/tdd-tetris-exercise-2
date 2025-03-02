@@ -93,6 +93,16 @@ export class Board {
     }
   }
 
+  moveRight() {
+    if (!this.fallingBlock) return;
+
+    if (this.positionCol > 0) {
+      this.clearBlockOnBoard();
+      this.positionCol--;
+      this.placeBlockOnBoard();
+    }
+  }
+
   toString() {
     let str = "";
 
