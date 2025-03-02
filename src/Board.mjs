@@ -34,8 +34,8 @@ export class Board {
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingBlock.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingBlock.rotatingShape.shape[i].length; j++) {
+    for (let i = 0; i < this.fallingBlock.rotatingShape.height; i++) {
+      for (let j = 0; j < this.fallingBlock.rotatingShape.width; j++) {
         this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingBlock.rotatingShape.shape[i][j];
       }
     }
@@ -51,6 +51,8 @@ export class Board {
   }
 
   validateNextPosition() {
+    if (!this.fallingBlock) return false;
+
     // If the bottom is reached or the next position is not an empty row
     if (this.positionRow + this.fallingBlock.rotatingShape.height == this.height || this.isBlockBelow()) {
       this.fallingBlock = null;
@@ -62,8 +64,8 @@ export class Board {
   }
 
   clearBlockOnBoard() {
-    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.shape.length; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.shape[0].length; j++) {
+    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.height; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.width; j++) {
         this.boardArr[i][j] = ".";
       }
     }
