@@ -7,7 +7,7 @@ export class Board {
   boardArr;
   positionRow;
   positionCol;
-  fallingBlock;
+  fallingShape;
 
   constructor(width, height) {
     this.width = width;
@@ -18,31 +18,31 @@ export class Board {
       .fill(".")
       .map(() => Array(width).fill("."));
 
-    this.fallingBlock = null;
+    this.fallingShape = null;
   }
 
   drop(block) {
-    if (this.fallingBlock) {
+    if (this.fallingShape) {
       throw new Error("already falling");
     }
 
-    this.fallingBlock = block instanceof Tetromino ? block : new Block(block);
+    this.fallingShape = block instanceof Tetromino ? block : new Block(block);
     this.positionRow = 0;
-    this.positionCol = Math.floor((this.width - this.fallingBlock.rotatingShape.shape.length) / 2);
+    this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
 
     this.placeBlockOnBoard();
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingBlock.rotatingShape.height; i++) {
-      for (let j = 0; j < this.fallingBlock.rotatingShape.width; j++) {
-        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingBlock.rotatingShape.shape[i][j];
+    for (let i = 0; i < this.fallingShape.rotatingShape.height; i++) {
+      for (let j = 0; j < this.fallingShape.rotatingShape.width; j++) {
+        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.rotatingShape.shape[i][j];
       }
     }
   }
 
   tick() {
-    if (!this.fallingBlock) return;
+    if (!this.fallingShape) return;
 
     // Move block if next position is valid
     if (this.validateNextPosition()) {
@@ -54,8 +54,8 @@ export class Board {
 
   validateNextPosition() {
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow + this.fallingBlock.rotatingShape.height == this.height || this.isBlockBelow()) {
-      this.fallingBlock = null;
+    if (this.positionRow + this.fallingShape.rotatingShape.height == this.height || this.isBlockBelow()) {
+      this.fallingShape = null;
 
       return false;
     }
@@ -64,29 +64,29 @@ export class Board {
   }
 
   clearBlockOnBoard() {
-    for (let i = this.positionRow; i < this.positionRow + this.fallingBlock.rotatingShape.height; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingBlock.rotatingShape.width; j++) {
+    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.height; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.width; j++) {
         this.boardArr[i][j] = ".";
       }
     }
   }
 
   isBlockBelow() {
-    const rowUnderBlock = this.positionRow + this.fallingBlock.rotatingShape.height;
+    const rowUnderBlock = this.positionRow + this.fallingShape.rotatingShape.height;
 
     return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol, this.positionCol + this.fallingBlock.rotatingShape.width)
+      .slice(this.positionCol, this.positionCol + this.fallingShape.rotatingShape.width)
       .some((el) => el != ".");
   }
 
   hasFalling() {
-    return this.fallingBlock != null;
+    return this.fallingShape != null;
   }
 
   moveLeft() {
-    if (!this.fallingBlock) return;
+    if (!this.fallingShape) return;
 
-    if (this.positionCol + this.fallingBlock.rotatingShape.width < this.width) {
+    if (this.positionCol + this.fallingShape.rotatingShape.width < this.width) {
       this.clearBlockOnBoard();
       this.positionCol++;
       this.placeBlockOnBoard();
@@ -94,7 +94,7 @@ export class Board {
   }
 
   moveRight() {
-    if (!this.fallingBlock) return;
+    if (!this.fallingShape) return;
 
     if (this.positionCol > 0) {
       this.clearBlockOnBoard();
