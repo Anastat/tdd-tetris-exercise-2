@@ -2,7 +2,7 @@ import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
   constructor(shape, height, width, block) {
-    this.rotatingShape = new RotatingShape(shape, height, width);
+    this.rotatingShape = new RotatingShape(shape);
     this.block = block;
   }
 

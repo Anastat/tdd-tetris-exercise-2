@@ -4,10 +4,7 @@ export class RotatingShape {
     RIGHT: "right",
   });
 
-  constructor(shape, height = shape.length, width = shape[0].length) {
-    // Height and width of the pure shape without frame
-    this.height = height;
-    this.width = width;
+  constructor(shape) {
     this.shape = RotatingShape.deepFreeze(shape);
   }
 
