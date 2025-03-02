@@ -34,9 +34,9 @@ export class Board {
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingShape.rotatingShape.height; i++) {
-      for (let j = 0; j < this.fallingShape.rotatingShape.width; j++) {
-        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.rotatingShape.shape[i][j];
+    for (let i = 0; i < this.fallingShape.block.length; i++) {
+      for (let j = 0; j < this.fallingShape.block[0].length; j++) {
+        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.block[i][j];
       }
     }
   }
@@ -54,7 +54,7 @@ export class Board {
 
   validateNextPosition() {
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow + this.fallingShape.rotatingShape.height == this.height || this.isBlockBelow()) {
+    if (this.positionRow + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
       this.fallingShape = null;
 
       return false;
@@ -64,18 +64,18 @@ export class Board {
   }
 
   clearBlockOnBoard() {
-    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.height; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.width; j++) {
+    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.block.length; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.block[0].length; j++) {
         this.boardArr[i][j] = ".";
       }
     }
   }
 
   isBlockBelow() {
-    const rowUnderBlock = this.positionRow + this.fallingShape.rotatingShape.height;
+    const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
 
     return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol, this.positionCol + this.fallingShape.rotatingShape.width)
+      .slice(this.positionCol, this.positionCol + this.fallingShape.block[0].length)
       .some((el) => el != ".");
   }
 
@@ -86,7 +86,7 @@ export class Board {
   moveLeft() {
     if (!this.fallingShape) return;
 
-    if (this.positionCol + this.fallingShape.rotatingShape.width < this.width) {
+    if (this.positionCol + this.fallingShape.block[0].length < this.width) {
       this.clearBlockOnBoard();
       this.positionCol++;
       this.placeBlockOnBoard();
