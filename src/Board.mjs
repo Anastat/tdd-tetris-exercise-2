@@ -42,6 +42,8 @@ export class Board {
   }
 
   tick() {
+    if (!this.fallingBlock) return;
+
     // Move block if next position is valid
     if (this.validateNextPosition()) {
       this.clearBlockOnBoard();
@@ -51,8 +53,6 @@ export class Board {
   }
 
   validateNextPosition() {
-    if (!this.fallingBlock) return false;
-
     // If the bottom is reached or the next position is not an empty row
     if (this.positionRow + this.fallingBlock.rotatingShape.height == this.height || this.isBlockBelow()) {
       this.fallingBlock = null;
