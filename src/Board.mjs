@@ -83,6 +83,16 @@ export class Board {
     return this.fallingBlock != null;
   }
 
+  moveLeft() {
+    if (!this.fallingBlock) return;
+
+    if (this.positionCol + this.fallingBlock.rotatingShape.width < this.width) {
+      this.clearBlockOnBoard();
+      this.positionCol++;
+      this.placeBlockOnBoard();
+    }
+  }
+
   toString() {
     let str = "";
 
