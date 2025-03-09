@@ -81,7 +81,7 @@ export class Board {
     return this.fallingShape != null;
   }
 
-  moveLeft() {
+  moveRight() {
     if (!this.fallingShape) return;
 
     if (this.positionCol + this.fallingShape.block[0].length < this.width) {
@@ -91,7 +91,7 @@ export class Board {
     }
   }
 
-  moveRight() {
+  moveLeft() {
     if (!this.fallingShape) return;
 
     if (this.positionCol > 0) {
