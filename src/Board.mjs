@@ -43,14 +43,7 @@ export class Board {
   }
 
   tick() {
-    if (!this.fallingShape) return;
-
-    // Move block if next position is valid
-    if (this.validateNextPosition()) {
-      this.clearBlockOnBoard();
-      this.positionRow++;
-      this.placeBlockOnBoard();
-    }
+    this.moveDown();
   }
 
   validateNextPosition() {
@@ -65,7 +58,8 @@ export class Board {
   }
 
   clearBlockOnBoard() {
-    let shapeRow = 0, shapeCol = 0;
+    let shapeRow = 0;
+    let shapeCol = 0;
     for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.shape.length; i++) {
       for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.shape[0].length; j++) {
         if (this.fallingShape.rotatingShape.shape[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
@@ -110,6 +104,7 @@ export class Board {
   moveDown() {
     if (!this.fallingShape) return;
 
+    // Move block if position below is valid
     if (this.validateNextPosition()) {
       this.clearBlockOnBoard();
       this.positionRow++;
