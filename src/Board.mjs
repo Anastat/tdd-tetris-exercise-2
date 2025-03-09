@@ -47,17 +47,6 @@ export class Board {
     this.moveDown();
   }
 
-  validateNextPosition() {
-    // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
-      this.fallingShape = null;
-
-      return false;
-    }
-
-    return true;
-  }
-
   clearBlockOnBoard() {
     let shapeRow = 0;
     let shapeCol = 0;
@@ -106,7 +95,7 @@ export class Board {
     if (!this.fallingShape) return;
 
     // Move block if position below is valid
-    if (this.validateNextPosition()) {
+    if (this.validateMoveDown()) {
       this.clearBlockOnBoard();
       this.positionRow++;
       this.placeBlockOnBoard();
@@ -149,6 +138,18 @@ export class Board {
     }
     return canMoveLeft;
   }
+
+  validateMoveDown() {
+    // If the bottom is reached or the next position is not an empty row
+    if (this.positionRow + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
+      this.fallingShape = null;
+
+      return false;
+    }
+
+    return true;
+  }
+
   toString() {
     let str = "";
 
