@@ -95,7 +95,7 @@ export class Board {
   moveLeft() {
     if (!this.fallingShape) return;
 
-    if (this.positionCol > 0) {
+    if (this.validateMoveLeft()) {
       this.clearBlockOnBoard();
       this.positionCol--;
       this.placeBlockOnBoard();
@@ -140,6 +140,15 @@ export class Board {
     return canMoveRight;
   }
 
+  validateMoveLeft() {
+    let canMoveLeft = false;
+    if (this.positionCol > 0) {
+      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.block.length; row++) {
+        canMoveLeft = this.boardArr[row][this.positionCol - 1] == ".";
+      }
+    }
+    return canMoveLeft;
+  }
   toString() {
     let str = "";
 
