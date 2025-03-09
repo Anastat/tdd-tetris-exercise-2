@@ -29,15 +29,16 @@ export class Board {
     this.fallingShape = block instanceof Tetromino ? block : new Block(block);
     this.positionRow = 0;
     this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
+    // If block located in shape in column other that 0
+    this.positionCol += this.colOffset();
 
     this.placeBlockOnBoard();
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[i][j] !== ".")
-          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.rotatingShape.shape[i][j];
+    for (let i = 0; i < this.fallingShape.block.length; i++) {
+      for (let j = 0; j < this.fallingShape.block[0].length; j++) {
+          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.block[i][j];
       }
     }
   }
@@ -110,6 +111,20 @@ export class Board {
       this.positionRow++;
       this.placeBlockOnBoard();
     }
+  }
+
+  colOffset() {
+    let startCol = 0;
+
+    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.rotatingShape.shape[i][j] !== ".") {
+          startCol = Math.min(startCol, j);
+        }
+      }
+    }
+
+    return -startCol;
   }
 
   toString() {
