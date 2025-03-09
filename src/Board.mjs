@@ -107,6 +107,16 @@ export class Board {
     }
   }
 
+  moveDown() {
+    if (!this.fallingShape) return;
+
+    if (this.validateNextPosition()) {
+      this.clearBlockOnBoard();
+      this.positionRow++;
+      this.placeBlockOnBoard();
+    }
+  }
+
   toString() {
     let str = "";
 
