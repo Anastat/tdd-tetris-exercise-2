@@ -59,14 +59,6 @@ export class Board {
     }
   }
 
-  isBlockBelow() {
-    const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
-
-    return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol, this.positionCol + this.fallingShape.block[0].length)
-      .some((el) => el != ".");
-  }
-
   hasFalling() {
     return this.fallingShape != null;
   }
@@ -148,6 +140,14 @@ export class Board {
     }
 
     return true;
+  }
+
+  isBlockBelow() {
+    const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
+
+    return this.boardArr[rowUnderBlock]
+      .slice(this.positionCol, this.positionCol + this.fallingShape.block[0].length)
+      .some((el) => el != ".");
   }
 
   toString() {
