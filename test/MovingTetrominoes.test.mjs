@@ -21,7 +21,7 @@ describe("Moving tetrominoes", () => {
     board = new Board(10, 6);
   });
 
-  test("a falling tetromino can be moved left", () => {
+  test("a falling tetromino can be moved right", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveLeft();
 
@@ -35,7 +35,7 @@ describe("Moving tetrominoes", () => {
     );
   });
 
-  test("a tetromino cannot be moved left when reached the border", () => {
+  test("a tetromino cannot be moved right when reached the border", () => {
     board.drop(Tetromino.T_SHAPE);
     moveToLeft(board);
 
@@ -49,7 +49,7 @@ describe("Moving tetrominoes", () => {
     );
   });
 
-  test("a falling tetromino can be moved right", () => {
+  test("a falling tetromino can be moved left", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveRight();
 
@@ -76,4 +76,18 @@ describe("Moving tetrominoes", () => {
        ..........`
     );
   });
+
+  /*test("a falling tetromino can be moved down", () => {
+    board.drop(Tetromino.O_SHAPE);
+    board.moveDown();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ....OO....
+       ....OO....
+       ..........
+       ..........
+       ..........`
+    );
+  });*/
 });
