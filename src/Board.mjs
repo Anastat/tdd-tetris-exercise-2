@@ -85,7 +85,7 @@ export class Board {
   moveRight() {
     if (!this.fallingShape) return;
 
-    if (this.positionCol + this.fallingShape.block[0].length < this.width) {
+    if (this.validateMoveRight()) {
       this.clearBlockOnBoard();
       this.positionCol++;
       this.placeBlockOnBoard();
@@ -127,6 +127,15 @@ export class Board {
     return startCol;
   }
 
+  validateMoveRight() {
+    let canMoveRight = false;
+    if (this.positionCol + this.fallingShape.block[0].length < this.width) {
+      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.block.length; row++) {
+        canMoveRight = this.boardArr[row][this.positionCol + this.fallingShape.block[0].length] == ".";
+      }
+    }
+    return canMoveRight;
+  }
   toString() {
     let str = "";
 

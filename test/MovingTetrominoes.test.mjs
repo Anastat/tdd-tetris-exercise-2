@@ -124,4 +124,26 @@ describe("Moving tetrominoes", () => {
        ....OO....`
     );
   });
+
+  test("a falling tetromino can be moved right through other blocks", () => {
+    board.drop(Tetromino.O_SHAPE);
+    moveDown(board);
+    board.drop(Tetromino.O_SHAPE);
+    board.moveDown();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveDown();
+    board.moveDown();
+    board.moveRight();
+    board.moveRight();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..OO......
+       ..OOOO....
+       ....OO....`
+    );
+  });
 });
