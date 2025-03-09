@@ -38,7 +38,7 @@ export class Board {
   placeBlockOnBoard() {
     for (let i = 0; i < this.fallingShape.block.length; i++) {
       for (let j = 0; j < this.fallingShape.block[0].length; j++) {
-          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.block[i][j];
+        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.block[i][j];
       }
     }
   }
@@ -61,9 +61,9 @@ export class Board {
   clearBlockOnBoard() {
     let shapeRow = 0;
     let shapeCol = 0;
-    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.shape.length; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
+    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.block.length; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.block[0].length; j++) {
+        if (this.fallingShape.block[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
         shapeCol++;
       }
       shapeRow++;
@@ -114,7 +114,7 @@ export class Board {
   }
 
   colOffset() {
-    let startCol = 0;
+    let startCol = this.fallingShape.rotatingShape.shape[0].length;
 
     for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
       for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
@@ -124,7 +124,7 @@ export class Board {
       }
     }
 
-    return -startCol;
+    return startCol;
   }
 
   toString() {

@@ -91,7 +91,7 @@ describe("Moving tetrominoes", () => {
     );
   });
 
-  /*test("a falling tetromino can be moved down", () => {
+  test("a falling tetromino can be moved down", () => {
     board.drop(Tetromino.O_SHAPE);
     board.moveDown();
 
@@ -103,5 +103,5 @@ describe("Moving tetrominoes", () => {
        ..........
        ..........`
     );
-  });*/
+  });
 });
