@@ -129,13 +129,17 @@ export class Board {
 
   validateMoveRight() {
     let canMoveRight = false;
+
     if (this.positionCol + this.fallingShape.block[0].length < this.width) {
+      const col = this.positionCol + this.fallingShape.block[0].length;
       for (let row = this.positionRow; row < this.positionRow + this.fallingShape.block.length; row++) {
-        canMoveRight = this.boardArr[row][this.positionCol + this.fallingShape.block[0].length] == ".";
+        canMoveRight = this.boardArr[row][col] == ".";
       }
     }
+
     return canMoveRight;
   }
+
   toString() {
     let str = "";
 
