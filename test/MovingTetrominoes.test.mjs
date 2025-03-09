@@ -15,6 +15,12 @@ function moveToRight(board) {
   }
 }
 
+function moveDown(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveDown();
+  }
+}
+
 describe("Moving tetrominoes", () => {
   let board;
   beforeEach(() => {
@@ -102,6 +108,20 @@ describe("Moving tetrominoes", () => {
        ..........
        ..........
        ..........`
+    );
+  });
+
+  test("O-shape tetromino stops when it reaches the bottom", () => {
+    board.drop(Tetromino.O_SHAPE);
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ....OO....
+       ....OO....`
     );
   });
 });
