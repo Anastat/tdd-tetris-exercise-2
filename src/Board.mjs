@@ -94,6 +94,12 @@ export class Board {
     }
   }
 
+  rotateLeft() {
+    this.clearBlockOnBoard()
+    this.fallingShape = this.fallingShape.rotateLeft();
+    this.placeBlockOnBoard();
+  }
+
   colOffset() {
     let startCol = this.fallingShape.rotatingShape.shape[0].length;
 
