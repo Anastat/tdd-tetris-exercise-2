@@ -95,8 +95,16 @@ export class Board {
   }
 
   rotateLeft() {
-    this.clearBlockOnBoard()
+    this.clearBlockOnBoard();
     this.fallingShape = this.fallingShape.rotateLeft();
+    this.placeBlockOnBoard();
+  }
+
+  rotateRight() {
+    this.clearBlockOnBoard();
+    this.fallingShape = this.fallingShape.rotateRight();
+    // If block located in shape in column other that 0
+    this.positionCol += this.colOffset();
     this.placeBlockOnBoard();
   }
 
