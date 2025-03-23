@@ -29,16 +29,15 @@ export class Board {
     this.fallingShape = block instanceof Tetromino ? block : new Block(block);
     this.positionRow = 0;
     this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
-    // If block located in shape in column other that 0
-    this.positionCol += this.colOffset();
 
     this.placeBlockOnBoard();
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingShape.block.length; i++) {
-      for (let j = 0; j < this.fallingShape.block[0].length; j++) {
-        this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.block[i][j];
+    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.rotatingShape.shape[i][j] != ".")
+          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.rotatingShape.shape[i][j];
       }
     }
   }
@@ -50,9 +49,9 @@ export class Board {
   clearBlockOnBoard() {
     let shapeRow = 0;
     let shapeCol = 0;
-    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.block.length; i++) {
-      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.block[0].length; j++) {
-        if (this.fallingShape.block[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
+    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.shape.length; i++) {
+      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.rotatingShape.shape[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
         shapeCol++;
       }
       shapeRow++;
@@ -103,8 +102,6 @@ export class Board {
   rotateRight() {
     this.clearBlockOnBoard();
     this.fallingShape = this.fallingShape.rotateRight();
-    // If block located in shape in column other that 0
-    this.positionCol += this.colOffset();
     this.placeBlockOnBoard();
   }
 
@@ -137,9 +134,12 @@ export class Board {
 
   validateMoveLeft() {
     let canMoveLeft = false;
-    if (this.positionCol > 0) {
-      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.block.length; row++) {
-        canMoveLeft = this.boardArr[row][this.positionCol - 1] == ".";
+    // If block located in shape in column other that 0
+    let col = this.positionCol + this.colOffset();
+
+    if (this.positionCol + this.colOffset() > 0) {
+      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
+        canMoveLeft = this.boardArr[row][col - 1] == ".";
       }
     }
     return canMoveLeft;
