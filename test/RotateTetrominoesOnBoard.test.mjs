@@ -36,4 +36,21 @@ describe("Rotating tetrominoes on board", () => {
        ..........`
     );
   });
+
+  test("position of the O-shaped tetramino is the same regardless of rotation", () => {
+    board.drop(Tetromino.O_SHAPE);
+    board.rotateRight();
+    board.rotateLeft();
+    board.rotateRight();
+    board.rotateLeft();
+
+    expect(board.toString()).to.equalShape(
+      `....OO....
+       ....OO....
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
 });

@@ -48,8 +48,9 @@ export class Board {
 
   clearBlockOnBoard() {
     let shapeRow = 0;
-    let shapeCol = 0;
+
     for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.shape.length; i++) {
+      let shapeCol = 0;
       for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.shape[0].length; j++) {
         if (this.fallingShape.rotatingShape.shape[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
         shapeCol++;
@@ -121,11 +122,11 @@ export class Board {
 
   validateMoveRight() {
     let canMoveRight = false;
+    let edgeCol = this.positionCol + this.fallingShape.rotatingShape.shape[0].length;
 
-    if (this.positionCol + this.fallingShape.block[0].length < this.width) {
-      const col = this.positionCol + this.fallingShape.block[0].length;
-      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.block.length; row++) {
-        canMoveRight = this.boardArr[row][col] == ".";
+    if (edgeCol < this.width) {
+      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
+        canMoveRight = this.boardArr[row][edgeCol] == ".";
       }
     }
 
@@ -160,7 +161,7 @@ export class Board {
     const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
 
     return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol, this.positionCol + this.fallingShape.block[0].length)
+      .slice(this.positionCol + this.colOffset(), this.positionCol + this.fallingShape.block[0].length)
       .some((el) => el != ".");
   }
 
