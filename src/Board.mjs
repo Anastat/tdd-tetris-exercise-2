@@ -152,7 +152,7 @@ export class Board {
     // If block located in shape in column other that 0
     let col = this.positionCol + this.leftColOffset();
 
-    if (this.positionCol + this.leftColOffset() > 0) {
+    if (col > 0) {
       for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
         canMoveLeft = this.boardArr[row][col - 1] == ".";
       }
