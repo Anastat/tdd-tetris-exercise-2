@@ -106,7 +106,7 @@ export class Board {
     this.placeBlockOnBoard();
   }
 
-  colOffset() {
+  leftColOffset() {
     let startCol = this.fallingShape.rotatingShape.shape[0].length;
 
     for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
@@ -136,9 +136,9 @@ export class Board {
   validateMoveLeft() {
     let canMoveLeft = false;
     // If block located in shape in column other that 0
-    let col = this.positionCol + this.colOffset();
+    let col = this.positionCol + this.leftColOffset();
 
-    if (this.positionCol + this.colOffset() > 0) {
+    if (this.positionCol + this.leftColOffset() > 0) {
       for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
         canMoveLeft = this.boardArr[row][col - 1] == ".";
       }
@@ -161,7 +161,7 @@ export class Board {
     const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
 
     return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol + this.colOffset(), this.positionCol + this.fallingShape.block[0].length)
+      .slice(this.positionCol + this.leftColOffset(), this.positionCol + this.fallingShape.block[0].length)
       .some((el) => el != ".");
   }
 
