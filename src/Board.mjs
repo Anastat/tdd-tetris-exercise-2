@@ -120,9 +120,23 @@ export class Board {
     return startCol;
   }
 
+  rightColOffset() {
+    let endCol = 0;
+
+    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.rotatingShape.shape[i][j] !== ".") {
+          endCol = Math.max(endCol, j);
+        }
+      }
+    }
+
+    return endCol - this.fallingShape.rotatingShape.shape[0].length + 1;
+  }
+
   validateMoveRight() {
     let canMoveRight = false;
-    let edgeCol = this.positionCol + this.fallingShape.rotatingShape.shape[0].length;
+    let edgeCol = this.positionCol + this.fallingShape.rotatingShape.shape[0].length + this.rightColOffset();
 
     if (edgeCol < this.width) {
       for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {

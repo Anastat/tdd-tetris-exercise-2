@@ -3,6 +3,12 @@ import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
+function moveToRight(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveRight();
+  }
+}
+
 describe("Rotating tetrominoes on board", () => {
   let board;
   beforeEach(() => {
@@ -48,6 +54,21 @@ describe("Rotating tetrominoes on board", () => {
       `....OO....
        ....OO....
        ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
+
+  test("rotated left T-shape can move to right border", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.rotateLeft();
+    moveToRight(board);
+
+    expect(board.toString()).to.equalShape(
+      `.........T
+       ........TT
+       .........T
        ..........
        ..........
        ..........`
