@@ -81,6 +81,18 @@ export class Board {
     this.fallingShape = this.fallingShape.rotateRight();
   }
 
+  topRowOffset() {
+    const shape = this.fallingShape.rotatingShape.shape;
+
+    for (let row = 0; row < shape.length; row++) {
+      if ([...shape[row]].some((char) => char !== ".")) {
+        return -row;
+      }
+    }
+
+    return -shape.length;
+  }
+
   leftColOffset() {
     let startCol = this.fallingShape.rotatingShape.shape[0].length;
 
