@@ -29,8 +29,6 @@ export class Board {
     this.fallingShape = block instanceof Tetromino ? block : new Block(block);
     this.positionRow = 0;
     this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
-
-    this.placeBlockOnBoard();
   }
 
   placeBlockOnBoard() {
@@ -67,9 +65,7 @@ export class Board {
     if (!this.fallingShape) return;
 
     if (this.validateMoveRight()) {
-      this.clearBlockOnBoard();
       this.positionCol++;
-      this.placeBlockOnBoard();
     }
   }
 
@@ -77,9 +73,7 @@ export class Board {
     if (!this.fallingShape) return;
 
     if (this.validateMoveLeft()) {
-      this.clearBlockOnBoard();
       this.positionCol--;
-      this.placeBlockOnBoard();
     }
   }
 
@@ -88,22 +82,16 @@ export class Board {
 
     // Move block if position below is valid
     if (this.validateMoveDown()) {
-      this.clearBlockOnBoard();
       this.positionRow++;
-      this.placeBlockOnBoard();
     }
   }
 
   rotateLeft() {
-    this.clearBlockOnBoard();
     this.fallingShape = this.fallingShape.rotateLeft();
-    this.placeBlockOnBoard();
   }
 
   rotateRight() {
-    this.clearBlockOnBoard();
     this.fallingShape = this.fallingShape.rotateRight();
-    this.placeBlockOnBoard();
   }
 
   leftColOffset() {
@@ -163,6 +151,7 @@ export class Board {
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
     if (this.positionRow + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
+      this.placeBlockOnBoard();
       this.fallingShape = null;
 
       return false;
