@@ -182,9 +182,27 @@ export class Board {
   toString() {
     let str = "";
 
-    for (let i = 0; i < this.boardArr.length; i++) {
-      for (let j = 0; j < this.boardArr[i].length; j++) {
-        str += this.boardArr[i][j];
+    for (let row = 0; row < this.height; row++) {
+      for (let col = 0; col < this.width; col++) {
+        let char = this.boardArr[row][col];
+
+        if (this.fallingShape) {
+          const shape = this.fallingShape.rotatingShape.shape;
+          const shapeRow = row - this.positionRow;
+          const shapeCol = col - this.positionCol;
+
+          if (
+            shapeRow >= 0 &&
+            shapeRow < shape.length &&
+            shapeCol >= 0 &&
+            shapeCol < shape[0].length &&
+            shape[shapeRow][shapeCol] !== "."
+          ) {
+            char = shape[shapeRow][shapeCol];
+          }
+        }
+
+        str += char;
       }
       str += "\n";
     }
