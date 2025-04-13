@@ -44,19 +44,6 @@ export class Board {
     this.moveDown();
   }
 
-  clearBlockOnBoard() {
-    let shapeRow = 0;
-
-    for (let i = this.positionRow; i < this.positionRow + this.fallingShape.rotatingShape.shape.length; i++) {
-      let shapeCol = 0;
-      for (let j = this.positionCol; j < this.positionCol + this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[shapeRow][shapeCol] !== ".") this.boardArr[i][j] = ".";
-        shapeCol++;
-      }
-      shapeRow++;
-    }
-  }
-
   hasFalling() {
     return this.fallingShape != null;
   }
