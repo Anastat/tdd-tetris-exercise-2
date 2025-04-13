@@ -27,7 +27,7 @@ export class Board {
     }
 
     this.fallingShape = block instanceof Tetromino ? block : new Block(block);
-    this.positionRow = 0;
+    this.positionRow = this.topRowOffset();
     this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
   }
 
