@@ -149,7 +149,7 @@ export class Board {
 
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
+    if (this.positionRow - this.topRowOffset() + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
       this.placeBlockOnBoard();
       this.fallingShape = null;
 
@@ -160,7 +160,7 @@ export class Board {
   }
 
   isBlockBelow() {
-    const rowUnderBlock = this.positionRow + this.fallingShape.block.length;
+    const rowUnderBlock = this.positionRow - this.topRowOffset() + this.fallingShape.block.length;
 
     return this.boardArr[rowUnderBlock]
       .slice(this.positionCol + this.leftColOffset(), this.positionCol + this.fallingShape.block[0].length)

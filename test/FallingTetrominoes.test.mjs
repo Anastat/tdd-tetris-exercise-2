@@ -57,4 +57,18 @@ describe("Falling tetrominoes", () => {
        ...TTT....`
     );
   });
+
+  test("I-shape stop when hits the bottom", () => {
+    board.drop(Tetromino.I_SHAPE);
+    fallToBottom(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..IIII....`
+    );
+  });
 });
