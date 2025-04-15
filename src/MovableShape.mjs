@@ -20,4 +20,8 @@ export class MovableShape {
   moveRight() {
     return new MovableShape(this.shape, this.positionRow, this.positionCol + 1);
   }
+
+  moveDown() {
+    return new MovableShape(this.shape, this.positionRow + 1, this.positionCol);
+  }
 }
