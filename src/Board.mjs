@@ -26,8 +26,9 @@ export class Board {
       throw new Error("already falling");
     }
 
-    this.fallingShape = block instanceof Tetromino ? block : new Block(block);
-    this.positionRow = this.topRowOffset();
+    let shape = block instanceof Tetromino ? block : new Block(block);
+    this.fallingShape = shape;
+    this.positionRow = this.topRowOffset(this.fallingShape.rotatingShape.shape);
     this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
   }
 
@@ -81,9 +82,7 @@ export class Board {
     this.fallingShape = this.fallingShape.rotateRight();
   }
 
-  topRowOffset() {
-    const shape = this.fallingShape.rotatingShape.shape;
-
+  topRowOffset(shape) {
     for (let row = 0; row < shape.length; row++) {
       if ([...shape[row]].some((char) => char !== ".")) {
         return -row;
@@ -149,7 +148,11 @@ export class Board {
 
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
-    if (this.positionRow - this.topRowOffset() + this.fallingShape.block.length == this.height || this.isBlockBelow()) {
+    if (
+      this.positionRow - this.topRowOffset(this.fallingShape.rotatingShape.shape) + this.fallingShape.block.length ==
+        this.height ||
+      this.isBlockBelow()
+    ) {
       this.placeBlockOnBoard();
       this.fallingShape = null;
 
@@ -160,7 +163,8 @@ export class Board {
   }
 
   isBlockBelow() {
-    const rowUnderBlock = this.positionRow - this.topRowOffset() + this.fallingShape.block.length;
+    const rowUnderBlock =
+      this.positionRow - this.topRowOffset(this.fallingShape.rotatingShape.shape) + this.fallingShape.block.length;
 
     return this.boardArr[rowUnderBlock]
       .slice(this.positionCol + this.leftColOffset(), this.positionCol + this.fallingShape.block[0].length)
