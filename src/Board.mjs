@@ -1,5 +1,6 @@
 import { Tetromino } from "./Tetromino.mjs";
 import { Block } from "./Block.mjs";
+import { MovableShape } from "./MovableShape.mjs";
 
 export class Board {
   width;
@@ -27,16 +28,17 @@ export class Board {
     }
 
     let shape = block instanceof Tetromino ? block : new Block(block);
-    this.fallingShape = shape;
-    this.positionRow = this.topRowOffset(this.fallingShape.rotatingShape.shape);
-    this.positionCol = Math.floor((this.width - this.fallingShape.rotatingShape.shape.length) / 2);
+    this.positionRow = this.topRowOffset(shape.rotatingShape.shape);
+    this.positionCol = Math.floor((this.width - shape.rotatingShape.shape.length) / 2);
+
+    this.fallingShape = new MovableShape(shape, this.positionRow, this.positionCol);
   }
 
   placeBlockOnBoard() {
-    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[i][j] != ".")
-          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.rotatingShape.shape[i][j];
+    for (let i = 0; i < this.fallingShape.shape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.shape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.shape.rotatingShape.shape[i][j] != ".")
+          this.boardArr[this.positionRow + i][this.positionCol + j] = this.fallingShape.shape.rotatingShape.shape[i][j];
       }
     }
   }
@@ -93,11 +95,11 @@ export class Board {
   }
 
   leftColOffset() {
-    let startCol = this.fallingShape.rotatingShape.shape[0].length;
+    let startCol = this.fallingShape.shape.rotatingShape.shape[0].length;
 
-    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[i][j] !== ".") {
+    for (let i = 0; i < this.fallingShape.shape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.shape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.shape.rotatingShape.shape[i][j] !== ".") {
           startCol = Math.min(startCol, j);
         }
       }
@@ -109,23 +111,27 @@ export class Board {
   rightColOffset() {
     let endCol = 0;
 
-    for (let i = 0; i < this.fallingShape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.rotatingShape.shape[i][j] !== ".") {
+    for (let i = 0; i < this.fallingShape.shape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.fallingShape.shape.rotatingShape.shape[0].length; j++) {
+        if (this.fallingShape.shape.rotatingShape.shape[i][j] !== ".") {
           endCol = Math.max(endCol, j);
         }
       }
     }
 
-    return endCol - this.fallingShape.rotatingShape.shape[0].length + 1;
+    return endCol - this.fallingShape.shape.rotatingShape.shape[0].length + 1;
   }
 
   validateMoveRight() {
     let canMoveRight = false;
-    let edgeCol = this.positionCol + this.fallingShape.rotatingShape.shape[0].length + this.rightColOffset();
+    let edgeCol = this.positionCol + this.fallingShape.shape.rotatingShape.shape[0].length + this.rightColOffset();
 
     if (edgeCol < this.width) {
-      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
+      for (
+        let row = this.positionRow;
+        row < this.positionRow + this.fallingShape.shape.rotatingShape.shape.length;
+        row++
+      ) {
         canMoveRight = this.boardArr[row][edgeCol] == ".";
       }
     }
@@ -139,7 +145,11 @@ export class Board {
     let col = this.positionCol + this.leftColOffset();
 
     if (col > 0) {
-      for (let row = this.positionRow; row < this.positionRow + this.fallingShape.rotatingShape.shape.length; row++) {
+      for (
+        let row = this.positionRow;
+        row < this.positionRow + this.fallingShape.shape.rotatingShape.shape.length;
+        row++
+      ) {
         canMoveLeft = this.boardArr[row][col - 1] == ".";
       }
     }
@@ -149,7 +159,9 @@ export class Board {
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
     if (
-      this.positionRow - this.topRowOffset(this.fallingShape.rotatingShape.shape) + this.fallingShape.block.length ==
+      this.positionRow -
+        this.topRowOffset(this.fallingShape.shape.rotatingShape.shape) +
+        this.fallingShape.shape.block.length ==
         this.height ||
       this.isBlockBelow()
     ) {
@@ -164,10 +176,12 @@ export class Board {
 
   isBlockBelow() {
     const rowUnderBlock =
-      this.positionRow - this.topRowOffset(this.fallingShape.rotatingShape.shape) + this.fallingShape.block.length;
+      this.positionRow -
+      this.topRowOffset(this.fallingShape.shape.rotatingShape.shape) +
+      this.fallingShape.shape.block.length;
 
     return this.boardArr[rowUnderBlock]
-      .slice(this.positionCol + this.leftColOffset(), this.positionCol + this.fallingShape.block[0].length)
+      .slice(this.positionCol + this.leftColOffset(), this.positionCol + this.fallingShape.shape.block[0].length)
       .some((el) => el != ".");
   }
 
@@ -179,7 +193,7 @@ export class Board {
         let char = this.boardArr[row][col];
 
         if (this.fallingShape) {
-          const shape = this.fallingShape.rotatingShape.shape;
+          const shape = this.fallingShape.shape.rotatingShape.shape;
           const shapeRow = row - this.positionRow;
           const shapeCol = col - this.positionCol;
 
