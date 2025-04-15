@@ -74,4 +74,18 @@ describe("Rotating tetrominoes on board", () => {
        ..........`
     );
   });
+
+  test("I-shape can be rotated left", () => {
+    board.drop(Tetromino.I_SHAPE);
+    board.rotateLeft();
+
+    expect(board.toString()).to.equalShape(
+      `....I.....
+       ....I.....
+       ....I.....
+       ....I.....
+       ..........
+       ..........`
+    );
+  });
 });

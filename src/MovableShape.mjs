@@ -6,11 +6,15 @@ export class MovableShape {
   }
 
   rotateLeft() {
-    return new MovableShape(this.shape.rotateLeft(), this.positionRow, this.positionCol);
+    let row = this.positionRow < 0 ? 0 : this.positionRow; // Special case for I-shape
+
+    return new MovableShape(this.shape.rotateLeft(), row, this.positionCol);
   }
 
   rotateRight() {
-    return new MovableShape(this.shape.rotateRight(), this.positionRow, this.positionCol);
+    let row = this.positionRow < 0 ? 0 : this.positionRow;
+
+    return new MovableShape(this.shape.rotateRight(), row, this.positionCol);
   }
 
   moveLeft() {
