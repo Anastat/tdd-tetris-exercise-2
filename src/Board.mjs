@@ -74,11 +74,11 @@ export class Board {
   }
 
   rotateLeft() {
-    this.fallingShape = this.fallingShape.rotateLeft();
+    this.tryRotate(this.fallingShape.rotateLeft());
   }
 
   rotateRight() {
-    this.fallingShape = this.fallingShape.rotateRight();
+    this.tryRotate(this.fallingShape.rotateRight());
   }
 
   topRowOffset(shape) {
@@ -184,6 +184,17 @@ export class Board {
         this.fallingShape.positionCol + this.fallingShape.shape.block[0].length
       )
       .some((el) => el != ".");
+  }
+
+  tryRotate(shape) {
+    const moves = [shape];
+    if (this.validateMoveLeft) moves.push(shape.moveLeft());
+    if (this.validateMoveRight) moves.push(shape.moveRight());
+
+    for (let move of moves) {
+      this.fallingShape = move;
+      return;
+    }
   }
 
   toString() {
