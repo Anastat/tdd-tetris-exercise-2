@@ -28,4 +28,31 @@ export class MovableShape {
   moveDown() {
     return new MovableShape(this.shape, this.positionRow + 1, this.positionCol);
   }
+
+  validateMoveRight(board) {
+    let canMoveRight = false;
+    let edge = this.positionCol + this.shape.rotatingShape.shape.length + this.rightColOffset() - 1;
+
+    if (edge < board[0].length) {
+      for (let row = this.positionRow; row < this.positionRow + this.shape.block.length; row++) {
+        canMoveRight = board[row][edge] == ".";
+      }
+    }
+
+    return canMoveRight;
+  }
+
+  rightColOffset() {
+    let endCol = 0;
+
+    for (let i = 0; i < this.shape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.shape.rotatingShape.shape[0].length; j++) {
+        if (this.shape.rotatingShape.shape[i][j] !== ".") {
+          endCol = Math.max(endCol, j);
+        }
+      }
+    }
+
+    return endCol - this.shape.rotatingShape.shape[0].length + 1;
+  }
 }
