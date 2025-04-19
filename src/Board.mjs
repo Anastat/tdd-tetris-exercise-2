@@ -53,7 +53,7 @@ export class Board {
 
     const movedRight = this.fallingShape.moveRight();
 
-    if (movedRight.validateMoveRight(this.boardArr)) {
+    if (movedRight.validateMove(this.boardArr)) {
       this.fallingShape = movedRight;
     }
   }
@@ -63,7 +63,7 @@ export class Board {
 
     const movedLeft = this.fallingShape.moveLeft();
 
-    if (movedLeft.validateMoveLeft(this.boardArr)) {
+    if (movedLeft.validateMove(this.boardArr)) {
       this.fallingShape = movedLeft;
     }
   }
@@ -95,7 +95,6 @@ export class Board {
     return -shape.length;
   }
 
-
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
     if (
@@ -122,22 +121,20 @@ export class Board {
 
     return this.boardArr[rowUnderBlock]
       .slice(
-        this.fallingShape.positionCol + this.leftColOffset(),
+        this.fallingShape.positionCol + this.fallingShape.leftColOffset(),
         this.fallingShape.positionCol + this.fallingShape.shape.block[0].length
       )
       .some((el) => el != ".");
   }
 
   tryRotate(shape) {
-    const moves = [shape];
-    if (this.validateMoveLeft) moves.push(shape.moveLeft());
-    if (shape.moveRight().validateMoveRight(this.boardArr)) {
-      moves.push(shape.moveRight());
-    }
+    const moves = [shape, shape.moveLeft(), shape.moveRight()];
 
     for (let move of moves) {
-      this.fallingShape = move;
-      return;
+      if (move.validateMove(this.boardArr)) {
+        this.fallingShape = move;
+        return;
+      }
     }
   }
 
