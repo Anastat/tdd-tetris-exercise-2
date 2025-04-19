@@ -29,30 +29,21 @@ export class MovableShape {
     return new MovableShape(this.shape, this.positionRow + 1, this.positionCol);
   }
 
-  validateMoveRight(board) {
-    let canMoveRight = false;
-    let edge = this.positionCol + this.shape.rotatingShape.shape.length + this.rightColOffset() - 1;
-
-    if (edge < board[0].length) {
-      for (let row = this.positionRow; row < this.positionRow + this.shape.block.length; row++) {
-        canMoveRight = board[row][edge] == ".";
-      }
-    }
-
-    return canMoveRight;
-  }
-
-  validateMoveLeft(board) {
-    let canMoveLeft = false;
+  validateMove(board) {
+    let canMove = false;
     // If block located in shape in column other that 0
-    let col = this.positionCol + this.leftColOffset();
+    let firstCol = this.positionCol + this.leftColOffset();
+    let lastCol = this.positionCol + this.shape.rotatingShape.shape.length + this.rightColOffset() - 1;
 
-    if (col >= 0) {
-      for (let row = this.positionRow; row < this.positionRow + this.shape.rotatingShape.shape.length; row++) {
-        canMoveLeft = board[row][col] == ".";
+    if (lastCol < board[0].length && firstCol >= 0) {
+      for (let row = this.positionRow; row < this.positionRow + this.shape.block.length; row++) {
+        canMove = board[row][lastCol] == "." && board[row][firstCol] == ".";
+
+        if (!canMove) return false;
       }
     }
-    return canMoveLeft;
+
+    return canMove;
   }
 
   rightColOffset() {
