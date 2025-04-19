@@ -61,8 +61,10 @@ export class Board {
   moveLeft() {
     if (!this.fallingShape) return;
 
-    if (this.validateMoveLeft()) {
-      this.fallingShape = this.fallingShape.moveLeft();
+    const movedLeft = this.fallingShape.moveLeft();
+
+    if (movedLeft.validateMoveLeft(this.boardArr)) {
+      this.fallingShape = movedLeft;
     }
   }
 
@@ -93,36 +95,6 @@ export class Board {
     return -shape.length;
   }
 
-  leftColOffset() {
-    let startCol = this.fallingShape.shape.rotatingShape.shape[0].length;
-
-    for (let i = 0; i < this.fallingShape.shape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.shape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.shape.rotatingShape.shape[i][j] !== ".") {
-          startCol = Math.min(startCol, j);
-        }
-      }
-    }
-
-    return startCol;
-  }
-
-  validateMoveLeft() {
-    let canMoveLeft = false;
-    // If block located in shape in column other that 0
-    let col = this.fallingShape.positionCol + this.leftColOffset();
-
-    if (col > 0) {
-      for (
-        let row = this.fallingShape.positionRow;
-        row < this.fallingShape.positionRow + this.fallingShape.shape.rotatingShape.shape.length;
-        row++
-      ) {
-        canMoveLeft = this.boardArr[row][col - 1] == ".";
-      }
-    }
-    return canMoveLeft;
-  }
 
   validateMoveDown() {
     // If the bottom is reached or the next position is not an empty row
