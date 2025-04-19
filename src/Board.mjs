@@ -51,8 +51,10 @@ export class Board {
   moveRight() {
     if (!this.fallingShape) return;
 
-    if (this.validateMoveRight()) {
-      this.fallingShape = this.fallingShape.moveRight();
+    const movedRight = this.fallingShape.moveRight();
+
+    if (movedRight.validateMoveRight(this.boardArr)) {
+      this.fallingShape = movedRight;
     }
   }
 
@@ -103,38 +105,6 @@ export class Board {
     }
 
     return startCol;
-  }
-
-  rightColOffset() {
-    let endCol = 0;
-
-    for (let i = 0; i < this.fallingShape.shape.rotatingShape.shape.length; i++) {
-      for (let j = 0; j < this.fallingShape.shape.rotatingShape.shape[0].length; j++) {
-        if (this.fallingShape.shape.rotatingShape.shape[i][j] !== ".") {
-          endCol = Math.max(endCol, j);
-        }
-      }
-    }
-
-    return endCol - this.fallingShape.shape.rotatingShape.shape[0].length + 1;
-  }
-
-  validateMoveRight() {
-    let canMoveRight = false;
-    let edgeCol =
-      this.fallingShape.positionCol + this.fallingShape.shape.rotatingShape.shape[0].length + this.rightColOffset();
-
-    if (edgeCol < this.width) {
-      for (
-        let row = this.fallingShape.positionRow;
-        row < this.fallingShape.positionRow + this.fallingShape.shape.rotatingShape.shape.length;
-        row++
-      ) {
-        canMoveRight = this.boardArr[row][edgeCol] == ".";
-      }
-    }
-
-    return canMoveRight;
   }
 
   validateMoveLeft() {
@@ -189,7 +159,9 @@ export class Board {
   tryRotate(shape) {
     const moves = [shape];
     if (this.validateMoveLeft) moves.push(shape.moveLeft());
-    if (this.validateMoveRight) moves.push(shape.moveRight());
+    if (shape.moveRight().validateMoveRight(this.boardArr)) {
+      moves.push(shape.moveRight());
+    }
 
     for (let move of moves) {
       this.fallingShape = move;
