@@ -42,6 +42,19 @@ export class MovableShape {
     return canMoveRight;
   }
 
+  validateMoveLeft(board) {
+    let canMoveLeft = false;
+    // If block located in shape in column other that 0
+    let col = this.positionCol + this.leftColOffset();
+
+    if (col >= 0) {
+      for (let row = this.positionRow; row < this.positionRow + this.shape.rotatingShape.shape.length; row++) {
+        canMoveLeft = board[row][col] == ".";
+      }
+    }
+    return canMoveLeft;
+  }
+
   rightColOffset() {
     let endCol = 0;
 
@@ -54,5 +67,19 @@ export class MovableShape {
     }
 
     return endCol - this.shape.rotatingShape.shape[0].length + 1;
+  }
+
+  leftColOffset() {
+    let startCol = this.shape.rotatingShape.shape[0].length;
+
+    for (let i = 0; i < this.shape.rotatingShape.shape.length; i++) {
+      for (let j = 0; j < this.shape.rotatingShape.shape[0].length; j++) {
+        if (this.shape.rotatingShape.shape[i][j] !== ".") {
+          startCol = Math.min(startCol, j);
+        }
+      }
+    }
+
+    return startCol;
   }
 }
