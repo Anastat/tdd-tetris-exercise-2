@@ -133,6 +133,7 @@ export class Board {
     for (let move of moves) {
       if (move.validateMove(this.boardArr)) {
         this.fallingShape = move;
+
         return;
       }
     }

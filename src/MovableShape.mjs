@@ -12,7 +12,7 @@ export class MovableShape {
   }
 
   rotateRight() {
-    let row = this.positionRow < 0 ? 0 : this.positionRow;
+    let row = this.positionRow < 0 ? 0 : this.positionRow; // Special case for I-shape
 
     return new MovableShape(this.shape.rotateRight(), row, this.positionCol);
   }
@@ -37,9 +37,11 @@ export class MovableShape {
 
     if (lastCol < board[0].length && firstCol >= 0) {
       for (let row = this.positionRow; row < this.positionRow + this.shape.block.length; row++) {
-        canMove = board[row][lastCol] == "." && board[row][firstCol] == ".";
+        for (let col = firstCol; col <= lastCol; col++) {
+          canMove = board[row][col] == ".";
 
-        if (!canMove) return false;
+          if (!canMove) return false;
+        }
       }
     }
 
