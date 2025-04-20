@@ -15,6 +15,12 @@ function moveToLeft(board) {
   }
 }
 
+function moveDown(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveDown();
+  }
+}
+
 describe("Kick wall tetrominoes on board", () => {
   let board;
   beforeEach(() => {
@@ -50,6 +56,26 @@ describe("Kick wall tetrominoes on board", () => {
        ..........
        ..........
        ..........`
+    );
+  });
+
+  test("T-shape can be kicked from other tetromino", () => {
+    board.drop(Tetromino.I_SHAPE);
+    board.rotateLeft();
+    moveDown(board);
+    board.drop(Tetromino.T_SHAPE);
+    board.moveRight();
+    board.rotateRight();
+    board.tick();
+    board.rotateRight();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ....ITTT..
+       ....I.T...
+       ....I.....
+       ....I.....`
     );
   });
 });
