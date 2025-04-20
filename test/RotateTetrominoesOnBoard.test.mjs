@@ -118,4 +118,23 @@ describe("Rotating tetrominoes on board", () => {
        .......T..`
     );
   });
+
+  test("a rotated T-shaped piece stops when it collides with another tetromino and can fit empty space", () => {
+    board.drop(Tetromino.T_SHAPE);
+    moveDown(board);
+    board.drop(Tetromino.T_SHAPE);
+    board.tick();
+    board.moveLeft();
+    board.rotateRight();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ...T......
+       ...TT.....
+       ...TT.....
+       ...TTT....`
+    );
+  });
 });
