@@ -9,6 +9,12 @@ function moveToRight(board) {
   }
 }
 
+function moveDown(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveDown();
+  }
+}
+
 describe("Rotating tetrominoes on board", () => {
   let board;
   beforeEach(() => {
@@ -86,6 +92,30 @@ describe("Rotating tetrominoes on board", () => {
        ....I.....
        ..........
        ..........`
+    );
+  });
+
+  test("T-shape cannot be rotated if no space to rotate", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.rotateLeft();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    moveDown(board);
+    board.drop(Tetromino.T_SHAPE);
+    board.rotateLeft();
+    moveToRight(board);
+    board.tick();
+    board.tick();
+    board.rotateRight();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       .........T
+       .......TTT
+       ......TT.T
+       .......T..`
     );
   });
 });
