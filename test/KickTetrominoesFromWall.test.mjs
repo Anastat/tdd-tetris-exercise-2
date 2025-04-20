@@ -9,6 +9,12 @@ function moveToRight(board) {
   }
 }
 
+function moveToLeft(board) {
+  for (let i = 0; i < 10; i++) {
+    board.moveLeft();
+  }
+}
+
 describe("Kick wall tetrominoes on board", () => {
   let board;
   beforeEach(() => {
@@ -25,6 +31,22 @@ describe("Kick wall tetrominoes on board", () => {
       `..........
        .......TTT
        ........T.
+       ..........
+       ..........
+       ..........`
+    );
+  });
+
+  test("a falling T-shape can be rotated with left wall kick", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.rotateRight();
+    moveToLeft(board);
+    board.rotateLeft();
+
+    expect(board.toString()).to.equalShape(
+      `.T........
+       TTT.......
+       ..........
        ..........
        ..........
        ..........`
