@@ -173,27 +173,27 @@ describe("The Z shape", () => {
   });
 });
 
-/*describe("The O shape", () => {
+describe("The O shape", () => {
   const shape = Tetromino.O_SHAPE;
 
-  test.skip("initial orientation", () => {
+  test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
       `.OO.
        .OO.`
     );
   });
 
-  test.skip("cannot be rotated right/clockwise", () => {
+  test("cannot be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `.OO.
        .OO.`
     );
   });
 
-  test.skip("cannot be rotated left/counter-clockwise", () => {
+  test("cannot be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `.OO.
        .OO.`
     );
   });
-});*/
+});
