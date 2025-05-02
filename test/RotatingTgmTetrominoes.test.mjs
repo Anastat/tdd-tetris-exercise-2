@@ -145,10 +145,10 @@ describe("The S shape", () => {
   });
 });
 
-/*describe("The Z shape", () => {
+describe("The Z shape", () => {
   const shape = Tetromino.Z_SHAPE;
 
-  test.skip("initial orientation", () => {
+  test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
       `....
        ZZ..
@@ -156,7 +156,7 @@ describe("The S shape", () => {
     );
   });
 
-  test.skip("can be rotated right/clockwise", () => {
+  test("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `..Z.
        .ZZ.
@@ -164,14 +164,14 @@ describe("The S shape", () => {
     );
   });
 
-  test.skip("can be rotated left/counter-clockwise", () => {
+  test("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `..Z.
        .ZZ.
        .Z..`
     );
   });
-});*/
+});
 
 /*describe("The O shape", () => {
   const shape = Tetromino.O_SHAPE;
