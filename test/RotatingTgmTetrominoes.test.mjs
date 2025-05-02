@@ -2,10 +2,10 @@ import { describe, test } from "vitest";
 import { expect } from "chai";
 import { Tetromino } from "../src/TgmTetromino.mjs";
 
-/*describe("The I shape", () => {
+describe("The I shape", () => {
   const shape = Tetromino.I_SHAPE;
 
-  test.skip("initial orientation", () => {
+  test("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
       `....
        IIII
@@ -14,7 +14,7 @@ import { Tetromino } from "../src/TgmTetromino.mjs";
     );
   });
 
-  test.skip("can be rotated right/clockwise", () => {
+  test("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `..I.
        ..I.
@@ -23,7 +23,7 @@ import { Tetromino } from "../src/TgmTetromino.mjs";
     );
   });
 
-  test.skip("can be rotated left/counter-clockwise", () => {
+  test("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `..I.
        ..I.
@@ -31,7 +31,7 @@ import { Tetromino } from "../src/TgmTetromino.mjs";
        ..I.`
     );
   });
-});*/
+});
 
 /*describe("The T shape", () => {
   const shape = Tetromino.T_SHAPE;
