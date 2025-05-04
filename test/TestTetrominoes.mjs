@@ -7,5 +7,11 @@ const T_SHAPE = [
 
 const I_SHAPE = [["I", "I", "I", "I", "."]];
 
+const O_SHAPE = [
+  ["O", "O"],
+  ["O", "O"],
+];
+
 export const TestTShape = new Tetromino([T_SHAPE], T_SHAPE);
 export const TestIShape = new Tetromino([I_SHAPE], I_SHAPE);
+export const TestOShape = new Tetromino([O_SHAPE], O_SHAPE);

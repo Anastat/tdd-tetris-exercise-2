@@ -2,7 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
-import { TestTShape } from "./TestTetrominoes.mjs";
+import { TestTShape, TestOShape } from "./TestTetrominoes.mjs";
 
 function moveToLeft(board) {
   for (let i = 0; i < 5; i++) {
@@ -85,7 +85,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("O-shape tetromino cannot be moved left when reached the border", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveToLeft(board);
 
     expect(board.toString()).to.equalShape(
@@ -99,7 +99,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino can be moved down", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     board.moveDown();
 
     expect(board.toString()).to.equalShape(
@@ -113,7 +113,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("O-shape tetromino stops when it reaches the bottom", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveDown(board);
 
     expect(board.toString()).to.equalShape(
@@ -127,9 +127,9 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino cannot be moved right through other blocks", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveDown(board);
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     board.moveDown();
     board.moveLeft();
     board.moveLeft();
@@ -149,9 +149,9 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino cannot be moved left through other blocks", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveDown(board);
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     board.moveDown();
     board.moveRight();
     board.moveRight();
@@ -171,9 +171,9 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino cannot be moved down through other blocks", () => {
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveDown(board);
-    board.drop(Tetromino.O_SHAPE);
+    board.drop(TestOShape);
     moveDown(board);
 
     expect(board.toString()).to.equalShape(
