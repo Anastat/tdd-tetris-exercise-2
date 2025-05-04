@@ -1,7 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { TestIShape, TestTShape } from "./helpers/TestTetrominoes.mjs";
+import { TestIShape, TestTShape, TestLShape } from "./helpers/TestTetrominoes.mjs";
 import { moveDown } from "./helpers/TestHelpers.mjs";
 
 describe("Validate board initial state", () => {
@@ -96,6 +96,76 @@ describe("Clearing lines", () => {
        OOOO.OOOOO
        OOOO.OOOOO
        OOOO.OOOOO`
+    );
+  });
+
+  test("two lines cleared when rotated L-shape hits other blocks", () => {
+    board.drop(TestLShape);
+    board.rotateRight();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ...LL.....
+       OOOO.OOOOO
+       OOOO.OOOOO`
+    );
+  });
+});
+
+describe("Clearing lines in middle", () => {
+  let board;
+  const boardState = [
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", ".", ".", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", ".", ".", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+  ];
+
+  beforeEach(() => {
+    const clonedState = boardState.map((row) => [...row]);
+    board = new Board(10, 8, clonedState);
+  });
+
+  test("one line cleared when rotated L-shape hits other blocks", () => {
+    board.drop(TestLShape);
+    board.rotateRight();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ...LL.....
+       OOO.LOOOOO
+       OOOO..OOOO
+       OOOO.OOOOO`
+    );
+  });
+
+  test("two lines cleared when rotated I-shape hits bottom", () => {
+    board.drop(TestIShape);
+    board.rotateRight();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..........
+       OOO.IOOOOO
+       OOOOI.OOOO`
     );
   });
 });
