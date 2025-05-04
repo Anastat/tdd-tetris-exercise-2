@@ -1,8 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { Tetromino } from "../src/Tetromino.mjs";
-import { TestTShape, TestOShape } from "./TestTetrominoes.mjs";
+import { TestTShape, TestOShape, TestIShape } from "./TestTetrominoes.mjs";
 
 function moveToRight(board) {
   for (let i = 0; i < 10; i++) {
@@ -83,7 +82,7 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("I-shape can be rotated left", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(TestIShape);
     board.rotateLeft();
 
     expect(board.toString()).to.equalShape(
