@@ -2,6 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { TestTShape } from "./TestTetrominoes.mjs";
 
 function moveToRight(board) {
   for (let i = 0; i < 10; i++) {
@@ -22,7 +23,7 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("a falling tetromino can be rotated left on board", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateLeft();
 
     expect(board.toString()).to.equalShape(
@@ -36,7 +37,7 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("a falling tetromino can be rotated right on board", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateRight();
 
     expect(board.toString()).to.equalShape(
@@ -67,7 +68,7 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("rotated left T-shape can move to right border", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateLeft();
     moveToRight(board);
 
@@ -96,13 +97,13 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("T-shape cannot be rotated if no space to rotate", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateLeft();
     board.moveRight();
     board.moveRight();
     board.moveRight();
     moveDown(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateLeft();
     moveToRight(board);
     board.tick();
@@ -120,9 +121,9 @@ describe("Rotating tetrominoes on board", () => {
   });
 
   test("a rotated T-shaped piece stops when it collides with another tetromino and can fit empty space", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     moveDown(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.tick();
     board.moveLeft();
     board.rotateRight();
