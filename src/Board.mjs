@@ -40,6 +40,27 @@ export class Board {
             this.fallingShape.shape.rotatingShape.shape[i][j];
       }
     }
+
+    this.clearFullLines();
+  }
+
+  clearFullLines() {
+    const newBoard = [];
+
+    for (let row of this.boardArr) {
+      if (row.every((cell) => cell !== ".")) {
+        continue;
+      }
+      newBoard.push(row);
+    }
+
+    const linesCleared = this.height - newBoard.length;
+
+    for (let i = 0; i < linesCleared; i++) {
+      newBoard.unshift(Array(this.width).fill(".")); // Empty rows on top
+    }
+
+    this.boardArr = newBoard;
   }
 
   tick() {

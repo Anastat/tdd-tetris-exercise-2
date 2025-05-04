@@ -47,7 +47,7 @@ describe("Validate board initial state", () => {
 });
 
 describe("Clearing lines", () => {
-  test.skip("four lines cleared as the I-shape hit bottom", () => {
+  test("four lines cleared as the I-shape hits bottom", () => {
     const boardState = [
       [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
       [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
