@@ -1,7 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { Tetromino } from "../src/Tetromino.mjs";
+import { TestTShape, TestIShape } from "./TestTetrominoes.mjs";
 
 function moveToRight(board) {
   for (let i = 0; i < 10; i++) {
@@ -28,7 +28,7 @@ describe("Kick wall tetrominoes on board", () => {
   });
 
   test("a falling T-shape can be rotated with right wall kick", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateLeft();
     moveToRight(board);
     board.rotateLeft();
@@ -44,7 +44,7 @@ describe("Kick wall tetrominoes on board", () => {
   });
 
   test("a falling T-shape can be rotated with left wall kick", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.rotateRight();
     moveToLeft(board);
     board.rotateLeft();
@@ -60,10 +60,10 @@ describe("Kick wall tetrominoes on board", () => {
   });
 
   test("T-shape can be kicked from other tetromino", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(TestIShape);
     board.rotateLeft();
     moveDown(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.moveRight();
     board.rotateRight();
     board.tick();
