@@ -1,8 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { Tetromino } from "../src/Tetromino.mjs";
-import { TestTShape } from "./TestTetrominoes.mjs";
+import { TestTShape, TestIShape } from "./TestTetrominoes.mjs";
 
 function fallToBottom(board) {
   for (let i = 0; i < 10; i++) {
@@ -60,7 +59,7 @@ describe("Falling tetrominoes", () => {
   });
 
   test("I-shape stop when hits the bottom", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(TestIShape);
     fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
