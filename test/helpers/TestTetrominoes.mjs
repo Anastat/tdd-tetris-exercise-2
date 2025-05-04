@@ -1,4 +1,4 @@
-import { TgmTetromino as Tetromino } from "../src/TgmTetromino.mjs";
+import { TgmTetromino as Tetromino } from "../../src/TgmTetromino.mjs";
 
 const T_SHAPE = [
   [".", "T", "."],

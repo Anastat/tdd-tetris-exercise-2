@@ -1,7 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { TestTShape, TestIShape } from "./TestTetrominoes.mjs";
+import { TestTShape, TestIShape } from "./helpers/TestTetrominoes.mjs";
 
 function moveToRight(board) {
   for (let i = 0; i < 10; i++) {
