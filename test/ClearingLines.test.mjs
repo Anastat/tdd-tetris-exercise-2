@@ -1,7 +1,7 @@
-import { describe, test } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
-import { TestIShape } from "./helpers/TestTetrominoes.mjs";
+import { TestIShape, TestTShape } from "./helpers/TestTetrominoes.mjs";
 import { moveDown } from "./helpers/TestHelpers.mjs";
 
 describe("Validate board initial state", () => {
@@ -47,19 +47,23 @@ describe("Validate board initial state", () => {
 });
 
 describe("Clearing lines", () => {
-  test("four lines cleared as the I-shape hits bottom", () => {
-    const boardState = [
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-    ];
+  let board;
+  const boardState = [
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+  ];
 
-    const board = new Board(10, 8, boardState);
+  beforeEach(() => {
+    board = new Board(10, 8, boardState);
+  });
+
+  test("four lines cleared as the I-shape hits bottom", () => {
     board.drop(TestIShape);
     board.rotateLeft();
     moveDown(board);
@@ -73,6 +77,36 @@ describe("Clearing lines", () => {
        ..........
        ..........
        ..........`
+    );
+  });
+
+  test.skip("one line cleared when the T-shape hits other blocks", () => {
+    const boardState = [
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ];
+
+    const board = new Board(10, 8, boardState);
+    board.drop(TestTShape);
+    board.rotateLeft();
+    board.rotateLeft();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ...TTT....
+       OOOO.OOOO
+       OOOO.OOOO
+       OOOO.OOOO`
     );
   });
 });
