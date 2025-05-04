@@ -2,24 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { TestTShape, TestIShape } from "./helpers/TestTetrominoes.mjs";
-
-function moveToRight(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveRight();
-  }
-}
-
-function moveToLeft(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveLeft();
-  }
-}
-
-function moveDown(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveDown();
-  }
-}
+import { moveToRight, moveToLeft, moveDown } from "./helpers/TestHelpers.mjs";
 
 describe("Kick wall tetrominoes on board", () => {
   let board;

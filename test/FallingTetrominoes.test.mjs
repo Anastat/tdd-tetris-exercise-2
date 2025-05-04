@@ -2,12 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { TestTShape, TestIShape } from "./helpers/TestTetrominoes.mjs";
-
-function fallToBottom(board) {
-  for (let i = 0; i < 10; i++) {
-    board.tick();
-  }
-}
+import { fallToBottom } from "./helpers/TestHelpers.mjs";
 
 describe("Falling tetrominoes", () => {
   let board;

@@ -2,18 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { TestTShape, TestOShape, TestIShape } from "./helpers/TestTetrominoes.mjs";
-
-function moveToRight(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveRight();
-  }
-}
-
-function moveDown(board) {
-  for (let i = 0; i < 10; i++) {
-    board.moveDown();
-  }
-}
+import { moveToRight, moveDown } from "./helpers/TestHelpers.mjs";
 
 describe("Rotating tetrominoes on board", () => {
   let board;
