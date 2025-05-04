@@ -1,6 +1,8 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
+import { TestIShape } from "./helpers/TestTetrominoes.mjs";
+import { moveDown } from "./helpers/TestHelpers.mjs";
 
 describe("Validate board initial state", () => {
   let board;
@@ -40,6 +42,37 @@ describe("Validate board initial state", () => {
        ....T.....
        ...TTT..OO
        ..IIII..OO`
+    );
+  });
+});
+
+describe("Clearing lines", () => {
+  test.skip("four lines cleared as the I-shape hit bottom", () => {
+    const boardState = [
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
+    ];
+
+    const board = new Board(10, 8, boardState);
+    board.drop(TestIShape);
+    board.rotateLeft();
+    moveDown(board);
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..........`
     );
   });
 });
