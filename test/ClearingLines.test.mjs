@@ -3,6 +3,7 @@ import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { TestIShape, TestTShape, TestLShape } from "./helpers/TestTetrominoes.mjs";
 import { moveDown } from "./helpers/TestHelpers.mjs";
+import { EventTypes } from "../src/constants/EventTypes.mjs";
 
 describe("Validate board initial state", () => {
   let board;
@@ -126,7 +127,7 @@ describe("Clearing lines", () => {
     board.rotateLeft();
     moveDown(board);
 
-    expect(listener.onEvent).toHaveBeenCalledWith({ type: "rowsCleared", count: 4 });
+    expect(listener.onEvent).toHaveBeenCalledWith({ type: EventTypes.ROWS_CLEARED, count: 4 });
   });
 });
 
