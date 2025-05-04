@@ -60,7 +60,8 @@ describe("Clearing lines", () => {
   ];
 
   beforeEach(() => {
-    board = new Board(10, 8, boardState);
+    const clonedState = boardState.map((row) => [...row]);
+    board = new Board(10, 8, clonedState);
   });
 
   test("four lines cleared as the I-shape hits bottom", () => {
@@ -81,18 +82,6 @@ describe("Clearing lines", () => {
   });
 
   test("one line cleared when the T-shape hits other blocks", () => {
-    const boardState = [
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-      ["O", "O", "O", "O", ".", "O", "O", "O", "O", "O"],
-    ];
-
-    const board = new Board(10, 8, boardState);
     board.drop(TestTShape);
     board.rotateLeft();
     board.rotateLeft();
