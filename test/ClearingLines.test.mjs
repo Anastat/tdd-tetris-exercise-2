@@ -1,4 +1,4 @@
-import { beforeEach, describe, test } from "vitest";
+import { beforeEach, describe, test, vi } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { TestIShape, TestTShape, TestLShape } from "./helpers/TestTetrominoes.mjs";
@@ -114,6 +114,19 @@ describe("Clearing lines", () => {
        OOOO.OOOOO
        OOOO.OOOOO`
     );
+  });
+
+  test.skip("notified listeners of 4 cleared lines", () => {
+    const listener = {
+      onEvent: vi.fn(),
+    };
+
+    board.addListener(listener);
+    board.drop(TestIShape);
+    board.rotateLeft();
+    moveDown(board);
+
+    expect(listener.onEvent).toHaveBeenCalledWith({ type: "rowsCleared", count: 4 });
   });
 });
 
