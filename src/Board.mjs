@@ -7,12 +7,14 @@ export class Board {
   boardArr;
   fallingShape;
 
-  constructor(width, height) {
+  constructor(width, height, boardArr) {
     this.width = width;
     this.height = height;
-    this.boardArr = Array(height)
-      .fill(".")
-      .map(() => Array(width).fill("."));
+    this.boardArr = boardArr
+      ? boardArr
+      : Array(height)
+          .fill(".")
+          .map(() => Array(width).fill("."));
 
     this.fallingShape = null;
   }
@@ -22,7 +24,7 @@ export class Board {
       throw new Error("already falling");
     }
 
-    let shape =  block instanceof TgmTetromino ? block : new TgmTetromino([block], [block]);
+    let shape = block instanceof TgmTetromino ? block : new TgmTetromino([block], [block]);
 
     const positionRow = this.topRowOffset(shape.rotatingShape.shape);
     const positionCol = Math.floor((this.width - shape.rotatingShape.shape[0].length) / 2);
