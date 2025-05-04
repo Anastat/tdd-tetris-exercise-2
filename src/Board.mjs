@@ -137,17 +137,24 @@ export class Board {
   }
 
   isBlockBelow() {
-    const rowUnderBlock =
-      this.fallingShape.positionRow -
-      this.topRowOffset(this.fallingShape.shape.rotatingShape.shape) +
-      this.fallingShape.shape.block.length;
+    const shape = this.fallingShape.shape.rotatingShape.shape;
 
-    return this.boardArr[rowUnderBlock]
-      .slice(
-        this.fallingShape.positionCol + this.fallingShape.leftColOffset(),
-        this.fallingShape.positionCol + this.fallingShape.shape.block[0].length
-      )
-      .some((el) => el != ".");
+    for (let col = 0; col < shape[0].length; col++) {
+      for (let row = shape.length - 1; row >= 0; row--) {
+        if (shape[row][col] !== ".") {
+          const boardRow = this.fallingShape.positionRow + row + 1;
+          const boardCol = this.fallingShape.positionCol + col;
+
+          if (boardRow >= this.height || this.boardArr[boardRow][boardCol] !== ".") {
+            return true;
+          }
+
+          break;
+        }
+      }
+    }
+
+    return false;
   }
 
   tryRotate(shape) {
