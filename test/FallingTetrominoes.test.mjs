@@ -30,7 +30,7 @@ describe("Falling tetrominoes", () => {
   });
 
   test("stop when they hit the bottom", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
@@ -44,9 +44,9 @@ describe("Falling tetrominoes", () => {
   });
 
   test("stop when they land on another block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
