@@ -1,5 +1,4 @@
 import { Tetromino } from "./Tetromino.mjs";
-import { Block } from "./Block.mjs";
 import { MovableShape } from "./MovableShape.mjs";
 
 export class Board {
@@ -23,7 +22,7 @@ export class Board {
       throw new Error("already falling");
     }
 
-    let shape = block instanceof Tetromino ? block : new Block(block);
+    let shape = block instanceof Tetromino ? block : new Tetromino([block], [block]);
     const positionRow = this.topRowOffset(shape.rotatingShape.shape);
     const positionCol = Math.floor((this.width - shape.rotatingShape.shape.length) / 2);
 
