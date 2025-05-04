@@ -17,6 +17,7 @@ export class Board {
           .map(() => Array(width).fill("."));
 
     this.fallingShape = null;
+    this.listeners = [];
   }
 
   drop(block) {
@@ -167,6 +168,10 @@ export class Board {
         return;
       }
     }
+  }
+
+  addListener(listener) {
+    this.listeners.push(listener);
   }
 
   toString() {
