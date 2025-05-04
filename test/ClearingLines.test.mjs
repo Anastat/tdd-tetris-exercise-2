@@ -80,7 +80,7 @@ describe("Clearing lines", () => {
     );
   });
 
-  test.skip("one line cleared when the T-shape hits other blocks", () => {
+  test("one line cleared when the T-shape hits other blocks", () => {
     const boardState = [
       [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
       [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
@@ -104,9 +104,9 @@ describe("Clearing lines", () => {
        ..........
        ..........
        ...TTT....
-       OOOO.OOOO
-       OOOO.OOOO
-       OOOO.OOOO`
+       OOOO.OOOOO
+       OOOO.OOOOO
+       OOOO.OOOOO`
     );
   });
 });
