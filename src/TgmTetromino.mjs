@@ -1,6 +1,6 @@
 import { RotatingShape } from "./TgmRotatingShape.mjs";
 
-export class Tetromino {
+export class TgmTetromino {
   constructor(rotations, block, currentRotation) {
     this.rotatingShape = new RotatingShape(rotations, currentRotation);
     this.block = block;
@@ -10,14 +10,14 @@ export class Tetromino {
     const rotated = this.rotatingShape.rotateLeft();
     const slicedShape = this.sliceShape(rotated.shape);
 
-    return new Tetromino(rotated.rotations, slicedShape, rotated.index);
+    return new TgmTetromino(rotated.rotations, slicedShape, rotated.index);
   }
 
   rotateRight() {
     const rotated = this.rotatingShape.rotateRight();
     const slicedShape = this.sliceShape(rotated.shape);
 
-    return new Tetromino(rotated.rotations, slicedShape, rotated.index);
+    return new TgmTetromino(rotated.rotations, slicedShape, rotated.index);
   }
 
   sliceShape(shape) {
@@ -49,7 +49,7 @@ export class Tetromino {
   }
 
   static get T_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],
@@ -80,7 +80,7 @@ export class Tetromino {
   }
 
   static get I_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],
@@ -100,7 +100,7 @@ export class Tetromino {
   }
 
   static get J_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],
@@ -131,7 +131,7 @@ export class Tetromino {
   }
 
   static get S_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],
@@ -152,7 +152,7 @@ export class Tetromino {
   }
 
   static get Z_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],
@@ -173,7 +173,7 @@ export class Tetromino {
   }
 
   static get O_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", "O", "O", "."],
@@ -188,7 +188,7 @@ export class Tetromino {
   }
 
   static get L_SHAPE() {
-    return new Tetromino(
+    return new TgmTetromino(
       [
         [
           [".", ".", ".", "."],

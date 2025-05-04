@@ -1,6 +1,6 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { Tetromino } from "../src/TgmTetromino.mjs";
+import { TgmTetromino as Tetromino } from "../src/TgmTetromino.mjs";
 
 describe("The I shape", () => {
   const shape = Tetromino.I_SHAPE;

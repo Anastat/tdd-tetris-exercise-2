@@ -1,5 +1,6 @@
 import { Tetromino } from "./Tetromino.mjs";
 import { MovableShape } from "./MovableShape.mjs";
+import { TgmTetromino } from "./TgmTetromino.mjs";
 
 export class Board {
   width;
@@ -22,9 +23,13 @@ export class Board {
       throw new Error("already falling");
     }
 
-    let shape = block instanceof Tetromino ? block : new Tetromino([block], [block]);
+    const isTetromino = typeof Tetromino === "function" && block instanceof Tetromino;
+    const isTgmTetromino = typeof TgmTetromino === "function" && block instanceof TgmTetromino;
+
+    let shape = isTetromino || isTgmTetromino ? block : new Tetromino([block], [block]);
+
     const positionRow = this.topRowOffset(shape.rotatingShape.shape);
-    const positionCol = Math.floor((this.width - shape.rotatingShape.shape.length) / 2);
+    const positionCol = Math.floor((this.width - shape.rotatingShape.shape[0].length) / 2);
 
     this.fallingShape = new MovableShape(shape, positionRow, positionCol);
   }
