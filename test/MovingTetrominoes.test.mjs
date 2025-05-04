@@ -2,6 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { TestTShape } from "./TestTetrominoes.mjs";
 
 function moveToLeft(board) {
   for (let i = 0; i < 5; i++) {
@@ -28,7 +29,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino can be moved right", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.moveRight();
 
     expect(board.toString()).to.equalShape(
@@ -42,7 +43,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a tetromino cannot be moved right when reached the border", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     moveToRight(board);
 
     expect(board.toString()).to.equalShape(
@@ -56,7 +57,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a falling tetromino can be moved left", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     board.moveLeft();
 
     expect(board.toString()).to.equalShape(
@@ -70,7 +71,7 @@ describe("Moving tetrominoes", () => {
   });
 
   test("a tetromino cannot be moved left when reached the border", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(TestTShape);
     moveToLeft(board);
 
     expect(board.toString()).to.equalShape(

@@ -33,7 +33,7 @@ export class MovableShape {
     let canMove = false;
     // If block located in shape in column other that 0
     let firstCol = this.positionCol + this.leftColOffset();
-    let lastCol = this.positionCol + this.shape.rotatingShape.shape.length + this.rightColOffset() - 1;
+    let lastCol = this.positionCol + this.shape.rotatingShape.shape[0].length + this.rightColOffset() - 1;
 
     if (lastCol < board[0].length && firstCol >= 0) {
       for (let row = this.positionRow; row < this.positionRow + this.shape.block.length; row++) {
