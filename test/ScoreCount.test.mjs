@@ -20,7 +20,7 @@ describe("Score counting", () => {
     expect(score.score).to.equal(1640);
   });
 
-  test.skip("returns a score of 0 if the number of rows cleared is incorrect", () => {
+  test("returns a score of 0 if the number of rows cleared is incorrect", () => {
     const score = new ScoreCount();
 
     score.onEvent({ type: EventTypes.ROWS_CLEARED, count: -1 });
@@ -33,7 +33,7 @@ describe("Score counting", () => {
     expect(score.score).to.equal(0);
   });
 
-  test.skip("returns a score of 0 if event is different from rowsCleared", () => {
+  test("returns a score of 0 if event is different from rowsCleared", () => {
     const score = new ScoreCount();
 
     score.onEvent({ type: "rowsAdded", count: 1 });
