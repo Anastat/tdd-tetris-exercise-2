@@ -4,7 +4,7 @@ import { EventTypes } from "../src/constants/EventTypes.mjs";
 import { ScoreCount } from "../src/ScoreCount.mjs";
 
 describe("Score counting", () => {
-  test.skip("calculates score correctly based on rows cleared", () => {
+  test("calculates score correctly based on rows cleared", () => {
     const score = new ScoreCount();
 
     score.onEvent({ type: EventTypes.ROWS_CLEARED, count: 2 });

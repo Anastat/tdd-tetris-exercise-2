@@ -1,4 +1,5 @@
 import { EventTypes } from "./constants/EventTypes.mjs";
+
 export class ScoreCount {
   constructor() {
     this.score = 0;
@@ -11,6 +12,12 @@ export class ScoreCount {
   }
 
   static getScoreForRows(rows) {
-    return 0;
+    switch (rows) {
+      case 1: return 40;
+      case 2: return 100;
+      case 3: return 300;
+      case 4: return 1200;
+      default: return 0;
+    }
   }
 }
