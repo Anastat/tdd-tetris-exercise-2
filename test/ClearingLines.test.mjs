@@ -117,7 +117,7 @@ describe("Clearing lines", () => {
     );
   });
 
-  test.skip("notified listeners of 4 cleared lines", () => {
+  test("notified listeners of 4 cleared lines", () => {
     const listener = {
       onEvent: vi.fn(),
     };

@@ -1,5 +1,6 @@
 import { MovableShape } from "./MovableShape.mjs";
 import { TgmTetromino } from "./TgmTetromino.mjs";
+import { EventTypes } from "./constants/EventTypes.mjs";
 
 export class Board {
   width;
@@ -62,6 +63,10 @@ export class Board {
     }
 
     this.boardArr = newBoard;
+
+    if (linesCleared > 0) {
+      this.notify({ type: EventTypes.ROWS_CLEARED, count: linesCleared });
+    }
   }
 
   tick() {
@@ -172,6 +177,10 @@ export class Board {
 
   addListener(listener) {
     this.listeners.push(listener);
+  }
+
+  notify(event) {
+    this.listeners.forEach(listener => listener.onEvent(event))
   }
 
   toString() {
