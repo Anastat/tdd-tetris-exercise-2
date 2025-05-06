@@ -11,4 +11,22 @@ export class ShuffleBag {
     }
     this.currentPosition = this.blocks.length - 1;
   }
+
+  next() {
+    if (this.currentPosition < 1) {
+      this.currentPosition = this.blocks.length - 1;
+      this.currentBlock = this.blocks[0];
+
+      return this.currentBlock;
+    }
+
+    const pos = Math.floor(Math.random() * this.currentPosition);
+
+    this.currentBlock = this.blocks[pos];
+    this.blocks[pos] = this.blocks[this.currentPosition];
+    this.blocks[this.currentPosition] = this.currentBlock;
+    this.currentPosition--;
+
+    return this.currentBlock;
+  }
 }
